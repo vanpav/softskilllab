@@ -30,7 +30,6 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 - `src/lib/components/journal/` — page sections and their scoped CSS
 - `src/lib/components/ui/` — shadcn-svelte components, ours to edit; Button holds `pen`, `stamp`, `pencil`
 - `src/lib/assets/` — images; `*.webp.json` beside each records its origin
-- `variants/` — static design references, the source of the public artifact; `b-notebook.html` is the chosen design, the others are rejected
 - `.impeccable/` — design tooling state; `surfaces/variants-b-notebook-html.md` holds the direction contract, `design.json` is generated
 - `.impeccable/review/` — gitignored screenshots
 
@@ -39,10 +38,9 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 - UI copy is Russian. Docs and CLAUDE.md are English.
 - Commit messages are one short line: no body, no mention of Claude, no `Co-Authored-By`.
 - `DESIGN.md` owns the visual system; follow its named rules. Refresh it and `.impeccable/design.json` together after visual changes.
-- Rejected variants use other fonts, so design-system font findings on them are expected.
 - Keep shadcn components free of stock looks: new primitives take journal tokens, square corners and the global dashed focus outline.
 - Experiment details, the start date, availability, the photos and the portrait slot are unconfirmed: see Open Decisions in `PRODUCT.md`. Don't present them as fact.
-- The variants are published as a public artifact (https://claude.ai/artifact/EXPLnk1vYKGTwGCfhH5Cgc). Ask before republishing.
+- The design variants were published as a public artifact (https://claude.ai/artifact/EXPLnk1vYKGTwGCfhH5Cgc). Their source was removed from the repo; it is in git history before this change. Ask before republishing.
 - The logo presentation `variants/logo-final.html` is a second public artifact (https://claude.ai/artifact/KZA25A4XkMoxByDykdeVUP). Ask before republishing; its photos sit in `variants/img/` and are published with it.
 - Logo files live in `src/lib/assets/logo/`; follow the lockup rules in `BRAND.md`.
 

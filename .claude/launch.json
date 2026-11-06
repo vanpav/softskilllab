@@ -2,18 +2,6 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "variants",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": [
-        "-m",
-        "http.server",
-        "4173",
-        "--directory",
-        "variants"
-      ],
-      "port": 4173
-    },
-    {
       "name": "site",
       "runtimeExecutable": "env",
       "runtimeArgs": [

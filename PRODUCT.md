@@ -4,7 +4,7 @@
 web
 
 ## Stack
-Static HTML/CSS/JS (user asked for standalone HTML variants).
+SvelteKit with SSR through `adapter-node`.
 
 ## Users
 Parents in Akko (Acre), Israel, Russian-speaking, choosing an after-school group for a child aged 6–16 — often looking at the page together with the child. Includes active kids and kids with ADHD.
@@ -19,7 +19,7 @@ Not a science club and not a psychologist's office: a group where kids learn to 
 - Name: Soft Skills Lab / Лаборатория Soft Skills. Slogan on logo: «Экспериментируй, познавай, расти».
 - Logo: chosen on 2026-11-06, replaces the old flask-with-profile logo: two clinking flasks on a lime marker patch, wordmark with "Lab" on a lime blob. Rules and files: `BRAND.md`.
 - Mascot: Пушистик, a fluffy alien with round glasses who accompanies every child. The existing artwork shows a teal creature, while the current site's copy calls it purple.
-- The user chose «Журнал опытов» (`variants/b-notebook.html`) as the new visual direction on 2026-11-06. The current site's palette (violet + lime on near-black) is no longer authority; DESIGN.md owns the visual system.
+- The user chose «Журнал опытов» as the new visual direction on 2026-11-06. The current site's palette (violet + lime on near-black) is no longer authority; DESIGN.md owns the visual system.
 
 ## Evidence on Hand
 - Groups strictly ≤6 children; ages 6–16; 100 ₪ per lesson; year course, start in September.
