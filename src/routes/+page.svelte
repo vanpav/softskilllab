@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import EntryPass from '#lib/components/journal/EntryPass.svelte';
 	import Hero from '#lib/components/journal/Hero.svelte';
+	import MarginGame from '#lib/components/journal/MarginGame.svelte';
 	import PhotoStrip from '#lib/components/journal/PhotoStrip.svelte';
 	import Protocols from '#lib/components/journal/Protocols.svelte';
 	import Roster from '#lib/components/journal/Roster.svelte';
@@ -41,6 +42,8 @@
 
 {#if greeting}
 	<Snow />
+{:else}
+	<MarginGame />
 {/if}
 <SiteHeader />
 <main>
