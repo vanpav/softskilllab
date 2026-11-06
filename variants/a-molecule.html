@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soft Skills Lab — Молекула</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#eef1f7;
+  --ink:#14141c;
+  --ink-2:#4a4d5e;
+  --red:#ff4733;
+  --blue:#2a5cff;
+  --yellow:#ffc414;
+  --green:#14b26a;
+  --black:#1b1b24;
+  --white:#ffffff;
+  --blue-deep:#1a3fd1;
+  --red-ink:#c42410;
+  --green-ink:#0a7843;
+  --yellow-ink:#8a5f00;
+  --r:22px;
+  --pad:clamp(16px,4vw,56px);
+  --max:1280px;
+  --display:"Unbounded",system-ui,sans-serif;
+  --body:"Golos Text",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55;overflow-x:hidden}
+::selection{background:var(--yellow);color:var(--ink)}
+a{color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-0.03em;text-wrap:balance}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in oklab,var(--ground) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px)}
+.top .wrap{display:flex;align-items:center;gap:24px;height:72px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-0.02em}
+.brand img{width:40px;height:40px;object-fit:contain}
+.nav{display:flex;gap:26px;margin-left:auto;font-weight:500;font-size:16px}
+.nav a{text-decoration:none;color:var(--ink-2)}
+.nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 24px;border-radius:999px;font:600 17px/1 var(--body);text-decoration:none;border:0;cursor:pointer;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-ink{background:var(--ink);color:#fff;box-shadow:0 6px 18px rgba(20,20,28,.22)}
+.btn-ink:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(20,20,28,.28)}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.top .btn{height:44px;padding:0 18px;font-size:15px}
+@media (max-width:860px){.nav{display:none}.top .btn{margin-left:auto}}
+
+/* hero */
+.hero{padding:clamp(24px,5vw,64px) 0 clamp(48px,7vw,96px)}
+.hero .wrap{display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(24px,4vw,64px);align-items:center}
+.hero h1{font-size:clamp(44px,6.4vw,92px);font-weight:900}
+.hero h1 .ln{display:block}
+.hero h1 .c-red{color:var(--red-ink)}
+.hero .lead{margin-top:28px;font-size:clamp(18px,1.6vw,21px);max-width:34ch;color:var(--ink-2)}
+.hero .lead b{color:var(--ink);font-weight:600}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:40px;font-weight:600;font-size:16px}
+.facts span{display:inline-flex;align-items:center;gap:8px}
+.facts i{width:12px;height:12px;border-radius:50%;display:inline-block}
+
+.stage{position:relative;aspect-ratio:1/1;width:100%;max-width:640px;justify-self:end;touch-action:none;user-select:none}
+.stage svg{width:100%;height:100%;overflow:visible}
+.atom{cursor:grab}
+.atom:active{cursor:grabbing}
+.atom text{font:700 17px var(--body);pointer-events:none}
+.bond{stroke:#9aa0b5;stroke-width:9;stroke-linecap:round}
+.bond2{stroke:#9aa0b5;stroke-width:5;stroke-linecap:round}
+.tip{position:absolute;left:0;top:0;pointer-events:none;background:var(--ink);color:#fff;padding:12px 16px;border-radius:14px;font-size:15px;line-height:1.35;max-width:240px;opacity:0;transform:translate(-50%,calc(-100% - 18px)) scale(.96);transition:opacity .18s,transform .18s;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.tip b{display:block;font-family:var(--display);font-size:15px;margin-bottom:2px}
+.tip.on{opacity:1;transform:translate(-50%,calc(-100% - 18px)) scale(1)}
+.stage-ui{position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);display:flex;gap:10px;align-items:center;white-space:nowrap}
+.shake{height:44px;padding:0 18px;border-radius:999px;border:0;background:#fff;color:var(--ink);font:600 15px var(--body);cursor:pointer;box-shadow:0 4px 14px rgba(20,20,28,.12);display:inline-flex;align-items:center;gap:8px}
+.shake:hover{background:var(--yellow)}
+.shake svg{width:18px;height:18px}
+.hint{font-size:14px;color:var(--ink-2)}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .stage{justify-self:center;max-width:520px;margin-top:8px}
+  .hint{display:none}
+}
+
+/* six */
+.six{background:var(--blue-deep);color:#fff;border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,1.5vw,20px);padding:clamp(56px,8vw,120px) 0}
+.six .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);align-items:center}
+.six h2{font-size:clamp(36px,5vw,72px)}
+.six p{margin-top:24px;font-size:clamp(18px,1.5vw,20px);color:#eef2ff;max-width:46ch}
+.six p b{color:#fff}
+.k6{position:relative}
+.k6 svg{width:100%;height:auto}
+.k6 .count{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font-family:var(--display);pointer-events:none}
+.k6 .count strong{display:block;font-size:clamp(64px,9vw,128px);font-weight:900;line-height:.9;letter-spacing:-0.05em}
+.k6 .count span{font-size:14px;font-weight:600;letter-spacing:.02em;display:block;margin-top:8px;color:#eef2ff}
+.k6 line{stroke:#fff;stroke-opacity:.55;stroke-width:2.5;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1)}
+.k6.on line{stroke-dashoffset:0}
+@media (max-width:860px){.six .wrap{grid-template-columns:1fr}.k6{max-width:440px;margin:0 auto}}
+
+/* reactions */
+.reactions{padding:clamp(72px,10vw,150px) 0 clamp(40px,6vw,80px)}
+.reactions h2{font-size:clamp(36px,5vw,72px);max-width:16ch}
+.reactions .sub{margin-top:20px;max-width:52ch;font-size:clamp(18px,1.5vw,20px);color:var(--ink-2)}
+.rx{margin-top:clamp(40px,6vw,80px);border-top:2px solid var(--ink)}
+.r{display:grid;align-items:start;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);padding:clamp(28px,3.5vw,44px) 0;border-bottom:2px solid var(--ink)}
+.eq{display:flex;flex-wrap:wrap;align-items:center;align-content:flex-start;gap:8px 12px;font-family:var(--display);font-weight:600;font-size:clamp(19px,1.9vw,26px);line-height:1.15;letter-spacing:-0.02em}
+.eq .op{font-weight:400;color:var(--ink-2)}
+.eq .chip{display:inline-flex;align-items:center;gap:10px}
+.eq .chip i{width:22px;height:22px;border-radius:50%;flex:none;box-shadow:inset -4px -5px 0 rgba(0,0,0,.18),inset 3px 3px 0 rgba(255,255,255,.45)}
+.eq .res{color:var(--c)}
+.r .life h3{font-size:14px;font-family:var(--body);font-weight:700;letter-spacing:.02em;color:var(--c);margin-bottom:8px}
+.r .life p{font-size:clamp(17px,1.35vw,19px)}
+.r .life .take{margin-top:14px;font-size:16px;color:var(--ink-2)}
+.r .life .take b{color:var(--ink)}
+@media (max-width:820px){.r{grid-template-columns:1fr}}
+
+/* photos */
+.lab{padding:clamp(24px,4vw,48px) 0 clamp(72px,10vw,140px)}
+.ph{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:auto auto;gap:clamp(10px,1.4vw,18px)}
+.ph figure{position:relative;border-radius:var(--r);overflow:hidden;background:#dde2ee}
+.ph figure img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1}
+.ph figure:first-child{grid-row:span 2}
+.ph figure:first-child img{aspect-ratio:auto}
+.ph figcaption{position:absolute;left:12px;bottom:12px;right:12px;background:#fff;border-radius:14px;padding:10px 14px;font-size:15px;font-weight:500;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.ph figcaption b{font-weight:700}
+@media (max-width:760px){.ph{grid-template-columns:1fr 1fr}.ph figure:first-child{grid-column:span 2;grid-row:auto}.ph figure:first-child img{aspect-ratio:4/3}.ph figcaption{font-size:13px;padding:8px 10px}}
+
+/* teacher */
+.anya{background:var(--yellow);border-radius:clamp(28px,4vw,48px);margin:0 clamp(8px,1.5vw,20px);padding:clamp(56px,8vw,112px) 0;overflow:hidden}
+.anya .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,80px);align-items:center}
+.anya .mascot{position:relative}
+.anya .mascot img{width:100%;max-width:420px;margin:0 auto;aspect-ratio:1/1;object-fit:cover;border-radius:36px;transform:rotate(-3deg);box-shadow:0 24px 40px rgba(120,80,0,.28)}
+.anya .bubble{position:absolute;right:-8px;top:-18px;background:#fff;border-radius:20px 20px 20px 4px;padding:12px 16px;font-weight:600;font-size:15px;max-width:200px;box-shadow:0 8px 20px rgba(120,80,0,.18)}
+.anya h2{font-size:clamp(34px,4.6vw,64px)}
+.anya .intro{margin-top:20px;font-size:clamp(18px,1.5vw,20px);max-width:44ch}
+.creds{margin-top:32px;display:grid;gap:0;border-top:2px solid var(--ink)}
+.creds li{list-style:none;display:grid;grid-template-columns:28px 1fr;gap:14px;padding:16px 0;border-bottom:2px solid var(--ink);font-size:17px}
+.creds li svg{width:26px;height:26px;margin-top:1px}
+.creds b{display:block;font-weight:700}
+.creds span{color:#3d3420}
+@media (max-width:860px){.anya .wrap{grid-template-columns:1fr}.anya .mascot img{max-width:280px}}
+
+/* price + cta */
+.join{padding:clamp(72px,10vw,150px) 0}
+.join .wrap{display:grid;grid-template-columns:1.25fr minmax(320px,.75fr);gap:clamp(28px,5vw,72px);align-items:end}
+.join h2{font-size:clamp(36px,5vw,72px);font-weight:900}
+.join h2 .c-red{color:var(--red-ink)}
+.join p{margin-top:24px;font-size:clamp(18px,1.5vw,20px);max-width:44ch;color:var(--ink-2)}
+.ticket{background:#fff;border-radius:var(--r);padding:28px;box-shadow:0 18px 40px rgba(20,20,40,.1)}
+.ticket .price{white-space:nowrap;font-family:var(--display);font-weight:900;font-size:clamp(52px,5vw,76px);letter-spacing:-0.05em;line-height:1}
+.ticket .per{font-weight:600;color:var(--ink-2);margin-top:6px}
+.seats{display:flex;gap:8px;margin:22px 0 8px}
+.seats i{width:30px;height:30px;border-radius:50%;box-shadow:inset -5px -6px 0 rgba(0,0,0,.16),inset 4px 4px 0 rgba(255,255,255,.4)}
+.seats i.free{background:#fff!important;box-shadow:inset 0 0 0 2.5px #c5cad8}
+.seats-note{font-size:15px;color:var(--ink-2)}
+.ticket .btn{width:100%;justify-content:center;margin-top:22px}
+.ticket .alt{white-space:nowrap;display:block;text-align:center;margin-top:14px;font-weight:600;text-decoration-thickness:2px;text-underline-offset:4px}
+@media (max-width:860px){.join .wrap{grid-template-columns:1fr}}
+
+footer{background:var(--black);color:#c9cbd8;padding:48px 0 40px;font-size:16px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:24px 48px;align-items:flex-start;justify-content:space-between}
+footer .brand{color:#fff}
+footer .brand img{filter:brightness(0) invert(1)}
+footer a{color:#fff;text-decoration-color:rgba(255,255,255,.35);text-underline-offset:4px}
+footer .cols{display:flex;flex-wrap:wrap;gap:20px 48px}
+footer .cols div b{display:block;color:#fff;font-weight:600;margin-bottom:4px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/logo.webp" alt="">Soft Skills Lab</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#six">Группа</a>
+      <a href="#reactions">Программа</a>
+      <a href="#anya">Педагог</a>
+      <a href="#join">Запись</a>
+    </nav>
+    <a class="btn btn-ink" href="https://wa.me/972533789931">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>
+      Написать Ане
+    </a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1><span class="ln">Шесть детей.</span><span class="ln c-red">Одна молекула.</span></h1>
+      <p class="lead">Мини-группы для детей <b>6–16 лет</b> в Акко. Мы ставим настоящие научные опыты, и пока смесь пенится, дети учатся <b>слушать друг друга, договариваться и дружить</b>.</p>
+      <div class="ctas">
+        <a class="btn btn-ink" href="#join">Записать ребёнка</a>
+        <a class="btn btn-ghost" href="#reactions">Как это работает</a>
+      </div>
+      <div class="facts">
+        <span><i style="background:var(--red)"></i>До 6 детей в группе</span>
+        <span><i style="background:var(--blue)"></i>Год занятий</span>
+        <span><i style="background:var(--green)"></i>Старт в сентябре</span>
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+      <svg id="mol" viewBox="0 0 600 600" role="img" aria-label="Молекула из шести атомов: шесть разных детей, связанных в одну группу. Атомы можно перетаскивать.">
+        <defs>
+          <radialGradient id="gloss" cx="35%" cy="30%" r="70%">
+            <stop offset="0" stop-color="#fff" stop-opacity=".75"/>
+            <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+            <stop offset="1" stop-color="#000" stop-opacity=".22"/>
+          </radialGradient>
+          <filter id="drop" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#1b1b40" flood-opacity=".22"/></filter>
+        </defs>
+        <g id="bonds"></g>
+        <g id="atoms"></g>
+      </svg>
+      <div class="tip" id="tip" role="status" aria-live="polite"></div>
+      <div class="stage-ui">
+        <button class="shake" id="shake" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21.5h11.6a2 2 0 0 0 1.7-3L14 9V3"/><path d="M7.5 15h9"/></svg>
+          Встряхнуть колбу
+        </button>
+        <span class="hint">или потяните за любой атом</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="six" id="six">
+  <div class="wrap">
+    <div>
+      <h2>Почему в группе ровно шесть</h2>
+      <p>Между шестью детьми <b>пятнадцать связей</b>. Кто с кем поспорил, кто обиделся, кто весь урок молчит: Аня видит каждую и успевает помочь прямо во время опыта.</p>
+      <p>Добавьте ещё десять детей, и связей станет сто двадцать. Тихий ребёнок в такой толпе просто потеряется.</p>
+    </div>
+    <div class="k6" id="k6">
+      <svg viewBox="0 0 400 400" aria-hidden="true"><g id="k6lines"></g><g id="k6dots"></g></svg>
+      <div class="count"><strong>15</strong><span>связей на шестерых</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="reactions" id="reactions">
+  <div class="wrap">
+    <h2>Каждый опыт — это разговор</h2>
+    <p class="sub">Шесть блоков годовой программы. В каждом есть реакция в колбе и реакция в группе. Первую видно сразу, вторую ребёнок уносит домой.</p>
+
+    <div class="rx">
+      <article class="r" style="--c:var(--red-ink)">
+        <div class="eq"><span class="chip"><i style="background:var(--red)"></i>Неньютоновская жидкость</span><span class="op">+</span><span>удар</span><span class="op">→</span><span class="res">камень</span></div>
+        <div class="life">
+          <h3>Эмоции и саморегуляция</h3>
+          <p>Ударишь, и она твердеет. Опустишь руку медленно, и рука тонет. С гневом так же: дети на ощупь понимают, почему крик не работает, а пауза работает.</p>
+          <p class="take"><b>Уносит домой:</b> свою антистресс-коробочку и пару быстрых техник перед контрольной.</p>
+        </div>
+      </article>
+      <article class="r" style="--c:var(--blue-deep)">
+        <div class="eq"><span class="chip"><i style="background:var(--blue)"></i>Капустный индикатор</span><span class="op">+</span><span>капля уксуса</span><span class="op">→</span><span class="res">другой цвет</span></div>
+        <div class="life">
+          <h3>Критическое мышление</h3>
+          <p>Цвет поменялся, значит, что-то произошло. Но что именно? Проверяем, спорим, ищем причину. Так учатся отличать факт от «мне так сказали».</p>
+          <p class="take"><b>Уносит домой:</b> умение спокойно отстоять свою позицию и не попадаться на уловки.</p>
+        </div>
+      </article>
+      <article class="r" style="--c:var(--green-ink)">
+        <div class="eq"><span class="chip"><i style="background:var(--green)"></i>Башня из бумаги</span><span class="op">+</span><span>шесть пар рук</span><span class="op">→</span><span class="res">выше всех</span></div>
+        <div class="life">
+          <h3>Общение и командная работа</h3>
+          <p>Один не построит, а шестеро без договорённости построят криво. Здесь дети учатся говорить «я-сообщениями», слышать чужую идею и делить роли без обид.</p>
+          <p class="take"><b>Уносит домой:</b> слова, которыми можно решить спор с другом без ссоры.</p>
+        </div>
+      </article>
+      <article class="r" style="--c:var(--yellow-ink)">
+        <div class="eq"><span class="chip"><i style="background:var(--yellow)"></i>Карта экспедиции</span><span class="op">+</span><span>компас</span><span class="op">→</span><span class="res">маршрут</span></div>
+        <div class="life">
+          <h3>Самоорганизация и цели</h3>
+          <p>Большая мечта превращается в шаги, которые понятно как пройти. Дети планируют, распределяют силы и время, сверяются друг с другом.</p>
+          <p class="take"><b>Уносит домой:</b> личную карту целей и план учебной недели без родительских напоминаний.</p>
+        </div>
+      </article>
+      <article class="r" style="--c:var(--ink)">
+        <div class="eq"><span class="chip"><i style="background:var(--black)"></i>Машина Руба Голдберга</span><span class="op">+</span><span>одна идея от каждого</span><span class="op">→</span><span class="res">цепная реакция</span></div>
+        <div class="life">
+          <h3>Креативность и ТРИЗ</h3>
+          <p>Шарик толкает костяшку, костяшка толкает рычаг. Каждое звено придумал кто-то свой, и без любого из них машина встанет. Страх сделать «неправильно» уходит сам.</p>
+          <p class="take"><b>Уносит домой:</b> собственный работающий прототип, который защитил перед группой.</p>
+        </div>
+      </article>
+      <article class="r" style="--c:var(--green-ink)">
+        <div class="eq"><span class="chip"><i style="background:#fff;box-shadow:inset 0 0 0 2.5px var(--ink),inset -4px -5px 0 rgba(0,0,0,.12)"></i>Ошибка</span><span class="op">+</span><span>любопытство</span><span class="op">→</span><span class="res">открытие</span></div>
+        <div class="life">
+          <h3>Устойчивость к неудачам</h3>
+          <p>Пенициллин и микроволновку открыли случайно. Разбираем великие ошибки учёных и свои собственные, и учимся пробовать снова, не ругая себя.</p>
+          <p class="take"><b>Уносит домой:</b> спокойное отношение к промахам и готовность попробовать ещё раз.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="lab" aria-label="Фотографии с занятий">
+  <div class="wrap">
+    <div class="ph">
+      <figure><img src="assets/team-building-blocks.webp" alt="Трое мальчиков вместе собирают конструкцию из цветных деталей"><figcaption><b>Инженерный челлендж.</b> Собрать можно только втроём.</figcaption></figure>
+      <figure><img src="assets/kids-flask-experiment.webp" alt="Мальчик и девочка вместе держат колбу с голубой жидкостью"><figcaption>Одна колба на двоих</figcaption></figure>
+      <figure><img src="assets/slime-experiment.webp" alt="Дети руками месят зелёный слайм в общей миске"><figcaption>Слайм на всех</figcaption></figure>
+      <figure><img src="assets/treasure-map-compass.webp" alt="Мальчик и девочка прокладывают маршрут по карте с компасом"><figcaption>Карта целей</figcaption></figure>
+      <figure><img src="assets/color-chemistry-experiment.webp" alt="Девочка капает пипеткой краситель в колбу"><figcaption>Химия цвета</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="anya" id="anya">
+  <div class="wrap">
+    <div class="mascot">
+      <img src="assets/pushistik.webp" alt="Пушистик — пушистый инопланетянин в круглых очках, талисман лаборатории">
+      <div class="bubble">Я Пушистик. Я хожу на каждое занятие.</div>
+    </div>
+    <div>
+      <h2>Занятия ведёт Аня</h2>
+      <p class="intro">Она переводит сложную психологию на язык, понятный ребёнку. Здесь нет оценок, критики и строгого учителя у доски. Все в группе равны, и это чувствуется с первого занятия.</p>
+      <ul class="creds">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5L2 9Z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg><div><b>Дипломированный педагог-психолог</b><span>Возрастная психология и авторские программы, которые удерживают внимание даже самых активных детей.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20c0-3 2.2-5 5-5s5 2 5 5M11 20c0-3 2.2-5 5-5s5 2 5 5"/></svg><div><b>Выпускница Института Адлера</b><span>На принципах равенства, уважения и поддержки строится каждый урок.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg><div><b>Бизнес-коуч</b><span>Годы обучения soft skills топ-менеджеров. Теперь этот опыт работает для детей.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="join" id="join">
+  <div class="wrap">
+    <div>
+      <h2>В сентябрьской группе остались <span class="c-red">свободные атомы</span></h2>
+      <p>Группы строго до шести детей. Когда места закончатся, запись закроется до следующего потока. Напишите Ане, она ответит на вопросы и подберёт группу по возрасту. Активным детям и детям с СДВГ у нас хорошо.</p>
+    </div>
+    <div class="ticket">
+      <div class="price">100 ₪</div>
+      <div class="per">за занятие · Акко</div>
+      <div class="seats" aria-hidden="true">
+        <i style="background:var(--red)"></i><i style="background:var(--blue)"></i><i style="background:var(--yellow)"></i><i style="background:var(--green)"></i><i class="free"></i><i class="free"></i>
+      </div>
+      <div class="seats-note">Пример: в группе заняты 4 места из 6</div>
+      <a class="btn btn-ink" href="https://wa.me/972533789931">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>
+        Занять место в WhatsApp
+      </a>
+      <a class="alt" href="tel:+972533789931">или позвонить: +972 53-378-9931</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/logo.webp" alt="">Soft Skills Lab</a>
+    <div class="cols">
+      <div><b>Где</b>Акко (Acre), Израиль</div>
+      <div><b>Для кого</b>Дети 6–16 лет</div>
+      <div><b>Связь</b><a href="tel:+972533789931">+972 53-378-9931</a><br><a href="mailto:annasmorodinskaa@gmail.com">annasmorodinskaa@gmail.com</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const kids = [
+    {name:'Тихоня',   c:'#ff4733', t:'#fff', say:'Научится говорить, когда это важно, и не бояться, что перебьют.'},
+    {name:'Заводила', c:'#2a5cff', t:'#fff', say:'Научится вести за собой и при этом слышать остальных.'},
+    {name:'Спорщик',  c:'#ffc414', t:'#14141c', say:'Научится спорить по фактам и не обижать.'},
+    {name:'Мечтатель',c:'#14b26a', t:'#fff', say:'Научится превращать идеи в план, который можно проверить.'},
+    {name:'Почемучка',c:'#1b1b24', t:'#fff', say:'Научится задавать вопросы так, чтобы на них хотелось отвечать.'},
+    {name:'Шутник',   c:'#ffffff', t:'#14141c', say:'Научится смешить, не задевая, и замечать, когда другому не до шуток.'}
+  ];
+  const svg = document.getElementById('mol'), gB = document.getElementById('bonds'), gA = document.getElementById('atoms');
+  const tip = document.getElementById('tip'), stage = document.getElementById('stage');
+  const NS = 'http://www.w3.org/2000/svg', C = 300, L = 178, R = 60;
+  const home = kids.map((k,i)=>{const a=-Math.PI/2+i*Math.PI/3;return {x:C+Math.cos(a)*L,y:C-10+Math.sin(a)*L}});
+  const P = home.map(h=>({x:h.x,y:h.y,vx:0,vy:0}));
+  const springs=[];
+  for(let i=0;i<6;i++){springs.push([i,(i+1)%6,L,1]);springs.push([i,(i+2)%6,L*Math.sqrt(3),.5]);}
+  for(let i=0;i<3;i++)springs.push([i,i+3,L*2,.35]);
+  const bondEls = [];
+  for(let i=0;i<6;i++){
+    const g=document.createElementNS(NS,'g');
+    const a=document.createElementNS(NS,'line');a.setAttribute('class','bond');
+    g.appendChild(a);
+    let b=null;
+    if(i%2===0){b=document.createElementNS(NS,'line');b.setAttribute('class','bond2');g.appendChild(b);}
+    gB.appendChild(g);bondEls.push([a,b]);
+  }
+  const atomEls = kids.map((k,i)=>{
+    const g=document.createElementNS(NS,'g');g.setAttribute('class','atom');g.setAttribute('tabindex','0');g.setAttribute('role','button');g.setAttribute('aria-label',k.name+'. '+k.say);
+    g.innerHTML=`<circle r="${R}" fill="${k.c}" filter="url(#drop)" ${k.c==='#ffffff'?'stroke="#d5d9e6" stroke-width="2"':''}/><circle r="${R}" fill="url(#gloss)"/><text text-anchor="middle" dy="5" fill="${k.t}">${k.name}</text>`;
+    gA.appendChild(g);return g;
+  });
+  let drag=-1, off={x:0,y:0}, hot=-1;
+  const toSvg=e=>{const r=svg.getBoundingClientRect();return {x:(e.clientX-r.left)/r.width*600,y:(e.clientY-r.top)/r.height*600}};
+  const showTip=i=>{
+    if(i<0){tip.classList.remove('on');hot=-1;return}
+    hot=i;tip.innerHTML=`<b>${kids[i].name}</b>${kids[i].say}`;tip.classList.add('on');placeTip();
+  };
+  const placeTip=()=>{if(hot<0)return;const r=svg.getBoundingClientRect(),s=stage.getBoundingClientRect();
+    const x=P[hot].x/600*r.width+r.left-s.left,y=(P[hot].y-R)/600*r.height+r.top-s.top;
+    tip.style.left=Math.max(120,Math.min(s.width-120,x))+'px';tip.style.top=y+'px';};
+  atomEls.forEach((g,i)=>{
+    g.addEventListener('pointerdown',e=>{drag=i;const p=toSvg(e);off={x:P[i].x-p.x,y:P[i].y-p.y};g.setPointerCapture(e.pointerId);showTip(i);kick();});
+    g.addEventListener('pointermove',e=>{if(drag!==i)return;const p=toSvg(e);P[i].x=p.x+off.x;P[i].y=p.y+off.y;P[i].vx=P[i].vy=0;kick();});
+    g.addEventListener('pointerup',()=>{drag=-1;});
+    g.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse'&&drag<0)showTip(i)});
+    g.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&drag<0)showTip(-1)});
+    g.addEventListener('focus',()=>showTip(i));g.addEventListener('blur',()=>showTip(-1));
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();P[i].vx+=(Math.random()-.5)*30;P[i].vy-=18;kick();}});
+  });
+  document.getElementById('shake').addEventListener('click',()=>{
+    P.forEach(p=>{p.vx+=(Math.random()-.5)*(reduce?0:60);p.vy+=(Math.random()-.5)*(reduce?0:60);});showTip(-1);kick();
+  });
+  let t0=0, running=false, idle=0;
+  function step(){
+    for(const [a,b,rest,k] of springs){
+      const dx=P[b].x-P[a].x,dy=P[b].y-P[a].y,d=Math.hypot(dx,dy)||1,f=(d-rest)*0.02*k;
+      const fx=dx/d*f,fy=dy/d*f;P[a].vx+=fx;P[a].vy+=fy;P[b].vx-=fx;P[b].vy-=fy;
+    }
+    // soft centering + breathing
+    let cx=0,cy=0;P.forEach(p=>{cx+=p.x;cy+=p.y});cx/=6;cy/=6;
+    const t=performance.now()/1000;
+    let energy=0;
+    P.forEach((p,i)=>{
+      if(i===drag)return;
+      p.vx+=(C-cx)*0.004;p.vy+=(C-10-cy)*0.004;
+      if(!reduce){p.vx+=Math.sin(t*1.3+i*1.7)*0.02;p.vy+=Math.cos(t*1.1+i*2.1)*0.02;}
+      p.vx*=0.9;p.vy*=0.9;p.x+=p.vx;p.y+=p.vy;
+      p.x=Math.max(R,Math.min(600-R,p.x));p.y=Math.max(R,Math.min(600-R-30,p.y));
+      energy+=Math.abs(p.vx)+Math.abs(p.vy);
+    });
+    return energy;
+  }
+  function draw(){
+    for(let i=0;i<6;i++){
+      const a=P[i],b=P[(i+1)%6],[l1,l2]=bondEls[i];
+      l1.setAttribute('x1',a.x);l1.setAttribute('y1',a.y);l1.setAttribute('x2',b.x);l1.setAttribute('y2',b.y);
+      if(l2){const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,nx=-dy/d*16,ny=dx/d*16,
+        mx=(a.x+b.x)/2,my=(a.y+b.y)/2,ux=(cx0()-mx),uy=(cy0()-my),s=(nx*ux+ny*uy)>0?1:-1;
+        const sh=.22;l2.setAttribute('x1',a.x+dx*sh+nx*s);l2.setAttribute('y1',a.y+dy*sh+ny*s);l2.setAttribute('x2',b.x-dx*sh+nx*s);l2.setAttribute('y2',b.y-dy*sh+ny*s);}
+    }
+    atomEls.forEach((g,i)=>g.setAttribute('transform',`translate(${P[i].x.toFixed(1)} ${P[i].y.toFixed(1)})`));
+    placeTip();
+  }
+  const cx0=()=>P.reduce((s,p)=>s+p.x,0)/6, cy0=()=>P.reduce((s,p)=>s+p.y,0)/6;
+  function loop(){const e=step();draw();idle=e<0.05&&drag<0?idle+1:0;if(idle>60&&reduce){running=false;return}requestAnimationFrame(loop)}
+  function kick(){idle=0;if(!running){running=true;requestAnimationFrame(loop)}}
+  // entrance: atoms fly in from scattered positions
+  if(!reduce){P.forEach((p,i)=>{p.x=C+(Math.random()-.5)*520;p.y=C+(Math.random()-.5)*520;})}
+  draw();kick();
+
+  // K6 graph
+  const lines=document.getElementById('k6lines'),dots=document.getElementById('k6dots');
+  const cols=['#ff4733','#ffc414','#14b26a','#1b1b24','#ffffff','#ff9ad5'];
+  const pts=[...Array(6)].map((_,i)=>{const a=-Math.PI/2+i*Math.PI/3;return [200+Math.cos(a)*165,200+Math.sin(a)*165]});
+  let n=0;
+  for(let i=0;i<6;i++)for(let j=i+1;j<6;j++){const l=document.createElementNS(NS,'line');const [x1,y1]=pts[i],[x2,y2]=pts[j];
+    l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);
+    l.style.setProperty('--len',Math.hypot(x2-x1,y2-y1).toFixed(0));l.style.transitionDelay=(n++*55)+'ms';lines.appendChild(l);}
+  pts.forEach(([x,y],i)=>{const c=document.createElementNS(NS,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',22);c.setAttribute('fill',cols[i]);dots.appendChild(c);});
+  const k6=document.getElementById('k6');
+  if(reduce||!('IntersectionObserver' in window))k6.classList.add('on');
+  else new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){k6.classList.add('on');o.disconnect()}}),{threshold:.35}).observe(k6);
+})();
+</script>
+</body>
+</html>

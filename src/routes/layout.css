@@ -1,0 +1,180 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn-svelte/tailwind.css";
+@import "@fontsource-variable/onest";
+@import "@fontsource-variable/caveat";
+
+:root {
+	/* Journal tokens: DESIGN.md is the reference */
+	--paper: #fbfcff;
+	--grid: #d9e5f6;
+	--margin: #f0a2a2;
+	--ink: #151a3a;
+	--ink-2: #4b5276;
+	--pen: #1f3fc4;
+	--marker: #e4ff4f;
+	--sheet: #fff;
+	--pink-text: #cc1f62;
+	--green: #2b8a4e;
+	--sticky: #ffe76a;
+	--sticky-ink: #5a4300;
+	--sticky-ink-soft: #7a5d00;
+	--sticky-pink: #ffc2dc;
+	--sticky-pink-ink: #6b1a3d;
+	--sticky-pink-ink-soft: #8a2a52;
+	--sticky-green: #c7f0a6;
+	--sticky-green-ink: #234a10;
+	--sticky-green-ink-soft: #2f5e17;
+	--permit-text: #d8dcf3;
+	--tape: rgba(255, 231, 106, 0.75);
+	--cell: 24px;
+	--pad: clamp(16px, 4vw, 56px);
+	--max: 1240px;
+	--sans: "Onest Variable", system-ui, sans-serif;
+	--hand: "Caveat Variable", "Comic Sans MS", cursive;
+
+	/* shadcn-svelte roles mapped onto the journal */
+	--radius: 0rem;
+	--background: var(--paper);
+	--foreground: var(--ink);
+	--card: var(--sheet);
+	--card-foreground: var(--ink);
+	--popover: var(--sheet);
+	--popover-foreground: var(--ink);
+	--primary: var(--pen);
+	--primary-foreground: var(--sheet);
+	--secondary: var(--sticky);
+	--secondary-foreground: var(--sticky-ink);
+	--muted: var(--grid);
+	--muted-foreground: var(--ink-2);
+	--accent: var(--marker);
+	--accent-foreground: var(--ink);
+	--destructive: var(--pink-text);
+	--border: var(--grid);
+	--input: var(--grid);
+	--ring: var(--pen);
+}
+
+@theme inline {
+	--font-sans: var(--sans);
+	--font-hand: var(--hand);
+	--color-ring: var(--ring);
+	--color-input: var(--input);
+	--color-border: var(--border);
+	--color-destructive: var(--destructive);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-accent: var(--accent);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-muted: var(--muted);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-secondary: var(--secondary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary: var(--primary);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-popover: var(--popover);
+	--color-card-foreground: var(--card-foreground);
+	--color-card: var(--card);
+	--color-foreground: var(--foreground);
+	--color-background: var(--background);
+	--radius-sm: calc(var(--radius) * 0.6);
+	--radius-md: calc(var(--radius) * 0.8);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) * 1.4);
+	--radius-2xl: calc(var(--radius) * 1.8);
+	--radius-3xl: calc(var(--radius) * 2.2);
+	--radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+}
+
+html {
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+	overflow-x: clip;
+}
+body {
+	font-family: var(--sans);
+	color: var(--ink);
+	font-size: 18px;
+	line-height: 1.55;
+	overflow-x: hidden;
+	background-color: var(--paper);
+	background-image:
+		linear-gradient(var(--grid) 1px, transparent 1px),
+		linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+	background-size: var(--cell) var(--cell);
+}
+body::before {
+	content: "";
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: clamp(10px, 3vw, 44px);
+	width: 2px;
+	background: var(--margin);
+	z-index: 0;
+	pointer-events: none;
+}
+::selection {
+	background: var(--marker);
+	color: var(--ink);
+}
+:focus-visible {
+	outline: 3px dashed var(--pen);
+	outline-offset: 4px;
+}
+[tabindex="-1"]:focus {
+	outline: none;
+}
+h1,
+h2,
+h3 {
+	font-weight: 900;
+	letter-spacing: -0.025em;
+	line-height: 1.02;
+	text-wrap: balance;
+}
+.wrap {
+	position: relative;
+	z-index: 1;
+	max-width: var(--max);
+	margin: 0 auto;
+	padding: 0 var(--pad) 0 calc(var(--pad) + 12px);
+}
+.hand {
+	font-family: var(--hand);
+	color: var(--pen);
+	font-weight: 700;
+	letter-spacing: 0;
+	line-height: 1.05;
+}
+.hl {
+	background: linear-gradient(transparent 12%, var(--marker) 12%, var(--marker) 88%, transparent 88%);
+	padding: 0 0.12em;
+	margin: 0 -0.06em;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+.tape {
+	position: absolute;
+	width: 120px;
+	height: 34px;
+	background: var(--tape);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	border-left: 1px dashed rgba(0, 0, 0, 0.06);
+	border-right: 1px dashed rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	* {
+		animation: none !important;
+		transition: none !important;
+	}
+}

@@ -1,0 +1,62 @@
+<script lang="ts">
+	import { Button } from '#lib/components/ui/button/index.js';
+	import { protocols } from '#lib/content.js';
+	import ProtocolSheet from './ProtocolSheet.svelte';
+
+	let peeled = $state(protocols.map(() => false));
+	const allPeeled = $derived(peeled.every(Boolean));
+
+	// Focus moves to the revealed text so it isn't left on a note that is about to hide.
+	function reveal(index: number) {
+		document.getElementById(`conclusion-${index + 1}`)?.focus({ preventScroll: true });
+	}
+
+	function peel(index: number) {
+		reveal(index);
+		peeled[index] = true;
+	}
+
+	function peelAll() {
+		const rest = peeled.flatMap((isPeeled, index) => (isPeeled ? [] : [index]));
+		reveal(rest[0]);
+		rest.forEach((index, order) => {
+			setTimeout(() => (peeled[index] = true), order * 110);
+		});
+	}
+</script>
+
+<section class="protocols" id="protocols">
+	<div class="wrap">
+		<h2>Протоколы опытов на целый год</h2>
+		<p class="sub">Шесть блоков программы. Слева то, что происходит в колбе. Справа, под стикером, то, что происходит между детьми. Отклейте стикер.</p>
+		{#if !allPeeled}
+			<Button variant="pencil" size="pencil" class="mt-[18px] hidden [.js_&]:inline-flex" onclick={peelAll}>отклеить все стикеры</Button>
+		{/if}
+		<div class="proto-list">
+			{#each protocols as protocol, i (protocol.title)}
+				<ProtocolSheet {protocol} number={i + 1} peeled={peeled[i]} onpeel={() => peel(i)} />
+			{/each}
+		</div>
+	</div>
+</section>
+
+<style>
+	.protocols {
+		padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 8vw, 120px);
+	}
+	h2 {
+		font-size: clamp(36px, 5vw, 72px);
+		max-width: 15ch;
+	}
+	.sub {
+		margin-top: 18px;
+		max-width: 54ch;
+		font-size: clamp(18px, 1.5vw, 20px);
+		color: var(--ink-2);
+	}
+	.proto-list {
+		margin-top: clamp(36px, 5vw, 64px);
+		display: grid;
+		gap: clamp(24px, 3vw, 40px);
+	}
+</style>
