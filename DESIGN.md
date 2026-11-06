@@ -345,8 +345,7 @@ A form-like sheet whose first column holds the experiment heading, a handwritten
 The signature interaction: a sticky note covering a protocol's conclusion. Its face asks that experiment's own question in Caveat, such as «а при чём тут крик?», over the small Onest verb «отклейте».
 - **Colour rotation:** Yellow, pink, green, repeating by sheet position, each with its own two inks.
 - **Rest:** Square, tilted 2deg, hinged at the centre of its top edge, overhanging the column by 6px and leaving the column label visible above it.
-- **First note:** Rests already displaced, 42px down and tilted 3deg, so the writing beneath shows and teaches the gesture. Its sheet stacks above the next one because the note overhangs the sheet's bottom edge.
-- **Hover:** Lifts 3px up (6px on the first note) and tilts 2deg further, with a deeper Note lift, on 0.55s `cubic-bezier(.5,-.3,.3,1.2)`.
+- **Hover:** Lifts 3px up and tilts 2deg further, with a deeper Note lift, on 0.55s `cubic-bezier(.5,-.3,.3,1.2)`.
 - **Peeled:** On click it lifts in perspective, hinged on the top edge (`perspective(700px) translateY(-18px) rotateX(-78deg)`, 0.6s `cubic-bezier(.16,1,.3,1)`), fading over 0.25s after a 0.35s delay. The note stays removed and focus moves to the revealed writing.
 - **Peel all:** A hand link button lifts every remaining note in sequence, 110ms apart.
 - **Without JavaScript:** Notes are not rendered, so every conclusion is simply visible.

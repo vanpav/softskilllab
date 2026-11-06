@@ -151,17 +151,7 @@
 		transform: rotate(4deg) translateY(-3px);
 		box-shadow: 0 16px 24px rgba(20, 30, 80, 0.22);
 	}
-	.proto:first-child {
-		z-index: 1;
-	}
-	.proto:first-child .peel {
-		transform: translateY(42px) rotate(3deg);
-	}
-	.proto:first-child .peel:hover {
-		transform: translateY(36px) rotate(5deg);
-	}
-	.peel.gone,
-	.proto:first-child .peel.gone {
+	.peel.gone {
 		transform: perspective(700px) translateY(-18px) rotateX(-78deg);
 		opacity: 0;
 		box-shadow: 0 40px 40px rgba(20, 30, 80, 0.28);
