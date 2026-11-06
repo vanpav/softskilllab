@@ -2,6 +2,8 @@
 	import * as Table from '#lib/components/ui/table/index.js';
 	import { roster, WHATSAPP_HREF } from '#lib/content.js';
 
+	let { month }: { month: string } = $props();
+
 	const head = 'h-auto border-b-2 border-foreground px-2 py-1.5 text-xs font-bold tracking-[.06em] text-muted-foreground uppercase';
 	const cell = 'h-12 border-b border-border px-2 py-1.5 align-bottom max-[600px]:px-1';
 	const hand = 'hand text-[28px] max-[600px]:text-[23px]';
@@ -17,7 +19,7 @@
 		<div class="list">
 			<span class="tape" aria-hidden="true"></span>
 			<span class="tape r" aria-hidden="true"></span>
-			<h3>Список исследователей <span>сентябрь</span></h3>
+			<h3>Список исследователей <span>{month}</span></h3>
 			<Table.Root class="mt-3.5 text-lg">
 				<Table.Header>
 					<Table.Row class="border-0 hover:bg-transparent">
@@ -40,7 +42,7 @@
 					{/each}
 				</Table.Body>
 			</Table.Root>
-			<p class="ex">Это пример заполнения, а не реальный список. Свободные места <a href={WHATSAPP_HREF}>уточняйте у Ани</a>.</p>
+			<p class="ex">Это пример заполнения, а не реальный список. Свободные места <a href={WHATSAPP_HREF} target="_blank" rel="noopener">уточняйте у Ани</a>.</p>
 		</div>
 	</div>
 </section>
@@ -108,12 +110,10 @@
 	}
 	.ex a {
 		color: var(--pen);
-		text-decoration: underline;
-		text-underline-offset: 3px;
-		transition: color 0.15s;
 	}
 	.ex a:hover {
-		color: var(--pink-text);
+		text-decoration: underline wavy var(--pink-text);
+		text-underline-offset: 4px;
 	}
 	@media (max-width: 900px) {
 		.roster .wrap {

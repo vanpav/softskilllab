@@ -19,7 +19,7 @@
 		<Button
 			variant="pen"
 			size="pen"
-			href={WHATSAPP_HREF}
+			href={WHATSAPP_HREF} target="_blank" rel="noopener"
 			class="max-[900px]:ml-auto max-[900px]:h-11 max-[900px]:px-4 max-[900px]:text-[15px]"
 		>
 			<WhatsAppIcon />
@@ -52,10 +52,9 @@
 		font-size: 16px;
 	}
 	.nav a {
-		color: var(--ink-2);
+		color: var(--pen);
 	}
 	.nav a:hover {
-		color: var(--pen);
 		text-decoration: underline wavy var(--pink-text);
 		text-underline-offset: 6px;
 	}

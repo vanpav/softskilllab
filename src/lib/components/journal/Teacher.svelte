@@ -1,6 +1,9 @@
 <script lang="ts">
 	import pushistik from '#lib/assets/pushistik.webp';
 	import { credentials } from '#lib/content.js';
+	import SantaDoodle from './SantaDoodle.svelte';
+
+	let { newYear }: { newYear: boolean } = $props();
 </script>
 
 <section class="lead-sec" id="anya">
@@ -22,7 +25,10 @@
 			<span class="tape" aria-hidden="true"></span>
 			<div class="portrait">
 				<div class="portrait-slot">здесь будет фото Ани</div>
-				<img class="sticker" src={pushistik} alt="Пушистик — пушистый инопланетянин в очках, талисман лаборатории" loading="lazy" />
+				<span class="sticker" class:bearded={newYear}>
+					<img src={pushistik} alt="Пушистик — пушистый инопланетянин в очках, талисман лаборатории" />
+					{#if newYear}<SantaDoodle />{/if}
+				</span>
 			</div>
 			<p>Пушистик ходит на каждое занятие и всегда на стороне ребёнка</p>
 		</div>
@@ -111,7 +117,7 @@
 		aspect-ratio: 1/1;
 		display: grid;
 		place-items: center;
-		padding: 24px;
+		padding: 24px 24px 34%; /* keeps the placeholder text clear of the sticker and its hat */
 		text-align: center;
 		border: 3px dashed var(--ink-2);
 		font-family: var(--hand);
@@ -124,11 +130,18 @@
 		right: -14px;
 		bottom: 12px;
 		width: clamp(96px, 10vw, 136px);
+		transform: rotate(-8deg);
+	}
+	/* Lifted so the beard stays on the sheet and clear of the caption. */
+	.sticker.bearded {
+		bottom: 44px;
+	}
+	.sticker img {
+		display: block;
 		aspect-ratio: 1/1;
 		object-fit: cover;
 		border-radius: 50%;
 		border: 6px solid var(--sheet);
-		transform: rotate(-8deg);
 		box-shadow: 0 10px 18px rgba(20, 30, 80, 0.25);
 	}
 	.card > p {

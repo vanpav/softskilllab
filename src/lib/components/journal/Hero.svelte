@@ -1,9 +1,10 @@
 <script lang="ts">
 	import pushistik from '#lib/assets/pushistik.webp';
 	import { Button } from '#lib/components/ui/button/index.js';
+	import SantaDoodle from './SantaDoodle.svelte';
 	import { WHATSAPP_HREF, type Photo } from '#lib/content.js';
 
-	let { photo }: { photo: Photo } = $props();
+	let { photo, newYear }: { photo: Photo; newYear: boolean } = $props();
 </script>
 
 <section class="hero">
@@ -18,7 +19,7 @@
 				Soft Skills Lab — мини-группы для детей <b>6–16 лет</b>. Колба, слайм или башня из бумаги здесь только повод: пока опыт идёт, дети учатся <b>договариваться, слушать и не бояться ошибок</b>.
 			</p>
 			<div class="cta-row">
-				<Button variant="pen" size="pen-lg" href={WHATSAPP_HREF}>Записать ребёнка</Button>
+				<Button variant="pen" size="pen-lg" href={WHATSAPP_HREF} target="_blank" rel="noopener">Записать ребёнка</Button>
 				<span class="note">до 6 человек в группе!</span>
 			</div>
 			<div class="page-meta">
@@ -27,11 +28,14 @@
 				<span><b>Цена</b>100 шекелей за занятие</span>
 			</div>
 		</div>
-		<figure class="polaroid">
+		<figure class="polaroid" class:bearded={newYear}>
 			<span class="tape" aria-hidden="true"></span>
 			<img src={photo.src} alt={photo.alt} />
-			<img class="sticker" src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" />
-			<span class="sticker-say" aria-hidden="true">я тоже тут!</span>
+			<span class="sticker">
+				<img src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" />
+				{#if newYear}<SantaDoodle />{/if}
+			</span>
+			<span class="sticker-say" aria-hidden="true">{newYear ? 'Хо-хо-хо!' : 'я тоже тут!'}</span>
 			<figcaption>{photo.heroCaption}</figcaption>
 		</figure>
 	</div>
@@ -147,21 +151,24 @@
 		color: var(--pen);
 		margin-top: 10px;
 		line-height: 1.1;
-		padding-right: clamp(90px, 10vw, 140px);
+		padding-right: clamp(120px, 13vw, 190px);
 	}
 	.polaroid .tape {
 		top: -16px;
 		left: 50%;
 		transform: translateX(-50%) rotate(-4deg);
 	}
-	.polaroid img.sticker {
+	.polaroid .sticker {
 		position: absolute;
 		right: -22px;
 		bottom: -60px;
 		width: clamp(110px, 12vw, 160px);
+		transform: rotate(-8deg);
+	}
+	.polaroid .sticker img {
+		display: block;
 		border-radius: 50%;
 		border: 6px solid var(--sheet);
-		transform: rotate(-8deg);
 		box-shadow: 0 10px 18px rgba(20, 30, 80, 0.25);
 	}
 	.sticker-say {
@@ -215,9 +222,13 @@
 			max-width: 300px;
 			margin: 28px auto 72px;
 		}
+		/* The beard hangs below the sticker and needs room above the lead. */
+		.polaroid.bearded {
+			margin-bottom: 96px;
+		}
 		.polaroid figcaption {
 			font-size: 24px;
-			padding-right: 64px;
+			padding-right: 108px; /* clears the sticker and hat for the longest random captions */
 		}
 		.lead {
 			order: 4;
@@ -229,7 +240,7 @@
 		.page-meta {
 			order: 6;
 		}
-		.polaroid img.sticker {
+		.polaroid .sticker {
 			right: -4px;
 		}
 		.sticker-say {

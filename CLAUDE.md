@@ -25,7 +25,8 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 ## Structure
 
 - `src/routes/+page.svelte` — the landing page, with head and meta
-- `src/routes/+page.server.ts` — picks the random hero photo per request
+- `src/routes/+page.server.ts` — per-request values: random hero photo, current month, New Year season
+- `src/lib/season.ts` — date rules in Akko time (`?date=2027-01-01T12:00:00Z` previews a day in `pnpm dev`; `localStorage.show_ny = true` shows the New Year season on any date)
 - `src/routes/layout.css` — journal tokens, shadcn role mapping, global rules
 - `src/lib/content.ts` — page copy that repeats or lists (protocols, roster, photos, contacts)
 - `src/lib/components/journal/` — page sections and their scoped CSS

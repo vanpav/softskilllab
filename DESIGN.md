@@ -224,13 +224,13 @@ The world refuses the dark neon space-science page and the generic kids'-club ca
 A cool paper-and-ink palette: stationery neutrals, one ballpoint blue, and one loud lime, with pastel sticky-note colours held to the notes themselves.
 
 ### Primary
-- **Ballpoint Blue** (#1f3fc4): All handwriting on paper, the main button fill, the nav hover colour, footer links, and the dashed focus outline on paper.
+- **Ballpoint Blue** (#1f3fc4): All handwriting on paper, the main button fill, every text link, and the dashed focus outline on paper.
 
 ### Secondary
 - **Highlighter Lime** (#e4ff4f): The marker stroke behind a highlighted phrase, text selection, the stamp button, and handwriting and the focus outline on the dark block.
 
 ### Tertiary
-- **Correction Pink** (#cc1f62): The one pink outside the sticky notes: the hand-drawn arrow, the wavy nav underline, the roster's month, its empty seats, and text links on hover (5.33:1 on white, 5.2:1 on paper).
+- **Correction Pink** (#cc1f62): The one pink outside the sticky notes: the hand-drawn arrow, the wavy link underline, the roster's month, and its empty seats (5.33:1 on white, 5.2:1 on paper).
 - **Check Green** (#2b8a4e): The hand-drawn check marks in a credentials list (4.22:1 on paper).
 - **Yellow Tape** (rgba(255,231,106,.75)): The only tape, Yellow Sticky at 75%.
 - **Yellow Sticky** (#ffe76a) with **Umber Sticky Ink** (#5a4300) and **Soft Umber** (#7a5d00): First note colour.
@@ -323,11 +323,11 @@ The page is built in SvelteKit: tokens and global rules live in `src/routes/layo
 Tactile and physical: on hover they press into the page and their shadow tightens, over 0.15s. Every focusable element shows a 3px dashed outline at 4px offset, Ballpoint Blue on paper and lime on the dark block.
 - **Pen button:** A Ballpoint Blue pill with white Onest 600 text, 48px high, or 56px with 26px of padding in a call-to-action row, and 44px with 16px of padding in the header at 900px and below. It moves down 2px on hover, uses Button lift, and may lead with an inline WhatsApp icon.
 - **Stamp button:** The entry pass's primary action. A lime block with 12px corners, Black Ink Onest 800, 64px high, tilted -2deg like a rubber stamp, with Stamp lift. It moves down 3px on hover, keeping its tilt. At 600px and below it drops to 16px text and 18px of side padding, keeping at least 64px of height.
-- **Hover colour:** Every link and button changes colour on hover: text links and the hand link button turn Correction Pink, the phone link on the dark block turns lime, the pen button turns Black Ink, the stamp turns white.
-- **Hand link button:** A bare underlined line of blue Caveat (24px) with no fill or border, used for «отклеить все стикеры». It exists only with JavaScript and sits at the right of the section head, or under the intro at 900px and below. Once every note is peeled it hides but keeps its place, so the sheets don't move.
+- **Links:** Text links are plain Ballpoint Blue with no underline. On hover they get a wavy Correction Pink underline. The phone link on the dark block is white, with a wavy lime underline on hover. On hover the pen button turns Black Ink and the stamp turns white.
+- **Hand link button:** A bare line of blue Caveat (24px) that takes the wavy link underline on hover, with no fill or border, used for «отклеить все стикеры». It exists only with JavaScript and sits at the right of the section head, or under the intro at 900px and below. Once every note is peeled it hides but keeps its place, so the sheets don't move.
 
 ### Navigation
-Plain Onest 500 links at 16px in Faded Ink, with no container. On hover they turn Ballpoint Blue with a wavy Correction Pink underline at 6px offset. Below 900px they spread across a full-width row with 44px tap height. The flask-only logo mark (44px) sits beside a bold typeset wordmark and a handwritten line, «журнал опытов».
+Plain Onest 500 links at 16px in Ballpoint Blue, with no container. On hover they get a wavy Correction Pink underline at 6px offset. Below 900px they spread across a full-width row with 44px tap height. The flask-only logo mark (44px) sits beside a bold typeset wordmark and a handwritten line, «журнал опытов».
 
 ### Cards / Containers
 - **Corner Style:** Square (0).
@@ -338,6 +338,9 @@ Plain Onest 500 links at 16px in Faded Ink, with no container. On hover they tur
 
 ### Hero Print
 The taped print on the first screen shows one of the five photos, picked at random on the server for each page load, with that photo's own handwritten caption. The photo strip further down shows the other four, so no photo repeats on a page.
+
+### Snow
+Shown only from 1 December to 10 January, by the date in Akko, together with the footer greeting; add `?date=2027-01-01T12:00:00Z` to preview a day in `pnpm dev`, or set `localStorage.show_ny = true` and reload to see it on any date, including the live site. New Year doodles: blue ballpoint snowflakes fall down the grid paper, 18 on desktop and 7 on phones, at 34–58% ink. Each is 27–72px wide with a 2.4px pen line: six hand-drawn arms in one of four shapes, retraced in two slightly different frames that alternate every 0.4s, like a flipbook. Larger flakes fall faster (16–34s). They come down in a wave on the wind: each swings side to side like a falling leaf, tilting most mid-sweep and easing at each end, while a slow shared gust passes down the page and a steady drift carries them all to the right. The swing is 60% as wide on phones. They are drawn on one canvas in a Web Worker, so the snow adds a single layer and no main-thread work (`snow-flakes.ts`, `snow-worker.ts`). The layer is fixed under `.wrap`, so flakes pass beneath the text and every sheet and never catch a click. With reduced motion they stay as still doodles on the page. Clicking a flake over bare paper or plain text bursts it: its arms and short Correction Pink rays fly apart in 0.6s, and it returns on its next lap from above the screen. Links, buttons and sheets keep their own clicks. They are not printed. In the same season Пушистик's speech bubble says «Хо-хо-хо!», and its round sticker gets a head-sized Santa hat, a moustache and a long beard drawn in the logo mark's style, in both places it appears: a lime marker patch behind, a flat Correction Pink hat, white brim, pompom, moustache and beard, one round Black Ink line, no wobble. The footer closes the page in large blue Caveat, tilted 2deg: «С наступающим Новым годом!» in December, «С Новым годом!» from 1 January.
 
 ### Tape
 A 120 × 34px strip of Yellow Tape with faint dashed cut ends, placed across a sheet's top edge at a slight angle. A sheet held by two strips, like the roster, narrows them to 96px.
@@ -352,7 +355,7 @@ The signature interaction: a sticky note covering a protocol's conclusion. Its f
 - **Curl:** One bottom corner is folded over along a straight diagonal, showing the darker back of the note with a highlight on the fold, over a navy shadow on the sheet. This is the first frame of the peel, so the note starts moving without a jump. A sheet-coloured layer beneath keeps the conclusion hidden until then. Odd sheets fold left, even sheets fold right.
 - **Variation:** Each of the six notes has its own fold size (34–64px), tilt (-1.5deg to 2.5deg), overhang and a slight tilt of its text, so no two look stamped.
 - **Hover:** Lifts 3px up, tilts 2deg further and folds 14px more, with a deeper Note lift, on 0.55s `cubic-bezier(.5,-.3,.3,1.2)`.
-- **Peeled:** On click the note is pulled off sideways by its curled corner, over 0.65s, speeding up the whole way (progress to the power 2.2). It starts from the note's current angle and fold, so a note clicked on hover keeps its hover tilt. The corner travels up and across the note, the note folds along a straight line that sweeps past it, and the folded part shows its darker back with a highlight on the fold. Near the end it drifts on and fades. Text on the note folds away with the paper. The geometry is in `journal/peel.ts`. With reduced motion the note disappears at once. The note stays removed and focus moves to the revealed writing.
+- **Peeled:** On click the note is pulled off sideways by its curled corner, over 0.65s, speeding up the whole way (progress to the power 2.2). It starts from the note's current angle, fold and shadow, so a note clicked on hover keeps its hover tilt and its Note lift to the end. The corner travels up and across the note, the note folds along a straight line that sweeps past it, and the folded part shows its darker back with a highlight on the fold. Near the end it drifts on and fades. Text on the note folds away with the paper. The geometry is in `journal/peel.ts`. With reduced motion the note disappears at once. The note stays removed and focus moves to the revealed writing.
 - **Peel all:** A hand link button lifts every remaining note in sequence, 110ms apart.
 - **Without JavaScript:** Notes are not rendered, so every conclusion is simply visible.
 

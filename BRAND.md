@@ -29,6 +29,11 @@ Chosen on 2026-11-06 after six rounds of logo exploration. This file records the
 - On dark: no halo and no extra outline. Known weakness: the ink outline merges with the dark background where it leaves the lime patch. Alternative not yet tried: light outline and dark flasks on dark.
 - One colour: pen blue, no patch, flask fill transparent.
 
+## Favicon
+
+- One upright flask with pen-blue liquid and an ink line on a square lime tile: `static/favicon.svg`, plus `favicon.ico` (16, 32, 48) and `apple-touch-icon.png` (180, without rounded corners).
+- It departs from the two-flask mark on purpose. Tried at 16 px, two flasks in any tilt merged into a tent or a butterfly, and the burst and marker patch disappeared.
+
 ## Wordmark
 
 - Onest 900, tracking −0.025em, outlined in the SVGs (no kerning applied).
@@ -51,7 +56,7 @@ Chosen on 2026-11-06 after six rounds of logo exploration. This file records the
 
 ## Open items
 
-- Favicon and avatar files are not made yet (derive from `logo-mark.svg`).
+- An avatar file is not made yet (derive from `logo-mark.svg`).
 - Business card: surname and title are unconfirmed; the card shows only «Аня».
 - Photos in the applications are free-licence placeholders from Wikimedia Commons (credits are on the page). Replace with real session photos once their origin is confirmed.
 - The footer still shows plain text, not the logo.

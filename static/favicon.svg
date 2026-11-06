@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+	<title>Soft Skills Lab</title>
+	<defs>
+		<path id="flask" d="M-8-44H8V-30C8-26 10-23 12-20L22-5C26 1 23 6 16 6H-16C-23 6-26 1-22-5L-12-20C-10-23-8-26-8-30Z" />
+		<clipPath id="inside"><use href="#flask" transform="translate(32 51)" /></clipPath>
+	</defs>
+	<rect width="64" height="64" rx="14" fill="#e4ff4f" />
+	<use href="#flask" transform="translate(32 51)" fill="#fff" />
+	<rect clip-path="url(#inside)" y="36" width="64" height="28" fill="#1f3fc4" />
+	<use href="#flask" transform="translate(32 51)" fill="none" stroke="#151a3a" stroke-width="5" stroke-linejoin="round" />
+</svg>

@@ -171,6 +171,8 @@
 		color: var(--sticky-ink);
 		transform: rotate(var(--tilt));
 		transform-origin: top center;
+		/* Always on its own layer: being promoted on click re-rasterises the text and shadow, which flickers. */
+		will-change: transform;
 		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), --curl 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	:global(.js) .peel {
@@ -247,10 +249,6 @@
 	}
 	.peel.peeling {
 		pointer-events: none;
-	}
-	.peeling .under {
-		opacity: 0;
-		transition: opacity 0.15s;
 	}
 	.peeling .curl {
 		visibility: hidden;

@@ -2,19 +2,21 @@
 	import { Button } from '#lib/components/ui/button/index.js';
 	import { PHONE_DISPLAY, PHONE_HREF, WHATSAPP_HREF } from '#lib/content.js';
 	import WhatsAppIcon from './WhatsAppIcon.svelte';
+
+	let { month }: { month: string } = $props();
 </script>
 
 <section class="join" id="join">
 	<div class="wrap">
 		<div class="permit">
 			<div>
-				<h2>Пропуск в лабораторию на <span class="hl">сентябрь</span></h2>
+				<h2>Пропуск в лабораторию на <span class="hl">{month}</span></h2>
 				<p>Набор открыт, мест осталось несколько. Группа закрывается, как только в ней шесть детей. Напишите Ане: она расскажет о программе и подберёт группу по возрасту.</p>
 			</div>
 			<div class="side">
 				<div class="price">100 ₪</div>
 				<span>за одно занятие</span>
-				<Button variant="stamp" size="stamp" href={WHATSAPP_HREF}>
+				<Button variant="stamp" size="stamp" href={WHATSAPP_HREF} target="_blank" rel="noopener">
 					<WhatsAppIcon />
 					Записаться в WhatsApp
 				</Button>
@@ -84,12 +86,11 @@
 	.tel {
 		color: var(--sheet);
 		font-weight: 600;
-		text-decoration: underline;
-		text-underline-offset: 5px;
-		transition: color 0.15s;
 	}
+	/* Blue and pink can't be read on the dark block, so this link stays white with a lime line. */
 	.tel:hover {
-		color: var(--marker);
+		text-decoration: underline wavy var(--marker);
+		text-underline-offset: 6px;
 	}
 	@media (max-width: 900px) {
 		.permit {

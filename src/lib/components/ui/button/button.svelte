@@ -15,7 +15,7 @@
 				link: "text-primary underline-offset-4 hover:underline",
 				pen: "rounded-full bg-primary text-primary-foreground font-semibold shadow-[0_6px_14px_rgba(20,30,80,.28)] hover:translate-y-0.5 hover:bg-[var(--ink)] hover:shadow-[0_3px_8px_rgba(20,30,80,.3)]",
 				stamp: "rounded-[12px] bg-accent text-accent-foreground font-extrabold -rotate-2 shadow-[0_8px_18px_rgba(0,0,0,.35)] hover:translate-y-[3px] hover:bg-[var(--sheet)] hover:shadow-[0_4px_10px_rgba(0,0,0,.4)]",
-				pencil: "cursor-pointer font-hand text-primary underline underline-offset-[5px] hover:text-[var(--pink-text)]",
+				pencil: "cursor-pointer font-hand text-primary underline-offset-[6px] hover:underline hover:decoration-wavy hover:[text-decoration-color:var(--pink-text)]",
 			},
 			size: {
 				default: "h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
