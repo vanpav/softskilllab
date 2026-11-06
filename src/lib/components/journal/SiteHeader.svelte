@@ -1,5 +1,5 @@
 <script lang="ts">
-	import logoMark from '#lib/assets/logo-mark.webp';
+	import logoLine from '#lib/assets/logo/logo-line.svg';
 	import { Button } from '#lib/components/ui/button/index.js';
 	import { WHATSAPP_HREF } from '#lib/content.js';
 	import WhatsAppIcon from './WhatsAppIcon.svelte';
@@ -7,9 +7,8 @@
 
 <header class="top">
 	<div class="wrap">
-		<a class="brand" href="/">
-			<img src={logoMark} alt="" />
-			<span>Soft Skills Lab<small>журнал опытов</small></span>
+		<a class="brand" href="/" aria-label="Soft Skills Lab, на главную">
+			<img src={logoLine} alt="Soft Skills Lab" width="744" height="210" />
 		</a>
 		<nav class="nav" aria-label="Разделы">
 			<a href="#group">Группа</a>
@@ -39,25 +38,11 @@
 	.brand {
 		display: flex;
 		align-items: center;
-		gap: 10px;
-		font-weight: 800;
-		font-size: 18px;
-		letter-spacing: -0.02em;
 	}
 	.brand img {
-		width: 44px;
-		height: 44px;
-		object-fit: contain;
-	}
-	.brand small {
 		display: block;
-		font-family: var(--hand);
-		font-weight: 500;
-		font-size: 19px;
-		color: var(--pen);
-		letter-spacing: 0;
-		line-height: 1;
-		margin-top: 2px;
+		height: 60px;
+		width: auto;
 	}
 	.nav {
 		margin-left: auto;
@@ -80,6 +65,9 @@
 			height: auto;
 			gap: 4px 20px;
 			padding-top: 12px;
+		}
+		.brand img {
+			height: 48px;
 		}
 		.nav {
 			order: 3;

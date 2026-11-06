@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="19.3 16.3 215.7 210.0" width="216" height="210" role="img" aria-label="Soft Skills Lab"><title>Soft Skills Lab</title>
+<defs><clipPath id="a-mm"><path transform="translate(72 205) rotate(24)" d="M-12-118H12V-74C12-62 18-54 26-42L40-22C52-4 48 0 28 0H-28C-48 0-52-4-40-22L-26-42C-18-54-12-62-12-74Z"/></clipPath><clipPath id="b-mm"><path transform="translate(188 205) rotate(-24)" d="M-12-118H12V-74C12-62 18-54 26-42L40-22C52-4 48 0 28 0H-28C-48 0-52-4-40-22L-26-42C-18-54-12-62-12-74Z"/></clipPath></defs>
+<g transform="translate(0 -11.6)" stroke-linecap="round" stroke-linejoin="round"><path transform="translate(72 205) rotate(24)" d="M-12-118H12V-74C12-62 18-54 26-42L40-22C52-4 48 0 28 0H-28C-48 0-52-4-40-22L-26-42C-18-54-12-62-12-74Z" fill="none"/><path transform="translate(188 205) rotate(-24)" d="M-12-118H12V-74C12-62 18-54 26-42L40-22C52-4 48 0 28 0H-28C-48 0-52-4-40-22L-26-42C-18-54-12-62-12-74Z" fill="none"/>
+<path clip-path="url(#a-mm)" fill="#1f3fc4" d="M0 166q16-9 32 0t32 0t32 0t32 0t32 0V230H0Z"/>
+<path clip-path="url(#b-mm)" fill="#1f3fc4" d="M0 172q16 9 32 0t32 0t32 0t32 0t32 0t32 0V230H0Z"/>
+<g fill="none" stroke="#1f3fc4" stroke-width="9"><path transform="translate(72 205) rotate(24)" d="M-12-118H12V-74C12-62 18-54 26-42L40-22C52-4 48 0 28 0H-28C-48 0-52-4-40-22L-26-42C-18-54-12-62-12-74Z"/><path transform="translate(188 205) rotate(-24)" d="M-12-118H12V-74C12-62 18-54 26-42L40-22C52-4 48 0 28 0H-28C-48 0-52-4-40-22L-26-42C-18-54-12-62-12-74Z"/></g>
+<path d="M130 66V34M102 74L84 50M158 74L176 50" stroke="#1f3fc4" stroke-width="8" fill="none"/></g>
+</svg>
