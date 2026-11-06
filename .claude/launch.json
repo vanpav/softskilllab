@@ -3,13 +3,13 @@
   "configurations": [
     {
       "name": "site",
-      "runtimeExecutable": "env",
+      "runtimeExecutable": "pnpm",
+      "port": 4174,
       "runtimeArgs": [
-        "PORT=4174",
-        "node",
-        "build"
-      ],
-      "port": 4174
+        "start",
+        "--port",
+        "4174"
+      ]
     },
     {
       "name": "dev",

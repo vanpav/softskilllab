@@ -6,7 +6,7 @@ Redesign of softskilllabs.com: a Russian-language landing page for mini-groups (
 
 ## Stack
 
-SvelteKit 3 on Vite 8, Svelte 5 runes, TypeScript, SSR through `adapter-node`. shadcn-svelte (`vega` preset) with Tailwind 4. Package manager: pnpm. Import project code through `#lib/...`, with `.js` for TS modules.
+SvelteKit 3 on Vite 8, Svelte 5 runes, TypeScript, SSR on Cloudflare Workers through `adapter-cloudflare`. shadcn-svelte (`vega` preset) with Tailwind 4. Package manager: pnpm. Import project code through `#lib/...`, with `.js` for TS modules.
 
 ## Commands
 
@@ -14,7 +14,8 @@ SvelteKit 3 on Vite 8, Svelte 5 runes, TypeScript, SSR through `adapter-node`. s
 |---|---|
 | `pnpm dev` | dev server |
 | `pnpm build` | production build into `build/` |
-| `pnpm start` | run the SSR server (`PORT` sets the port; default 3000) |
+| `pnpm start` | run the production build locally in Wrangler (`pnpm build` first; `--port` sets the port) |
+| `pnpm run deploy` | build and deploy by hand; normally a push to `main` deploys through Workers Builds |
 | `pnpm check` | types and Svelte diagnostics |
 | `pnpm exec shadcn-svelte add <name>` | add a UI component |
 | `<impeccable plugin>/scripts/impeccable detect --json <file>` | design and contrast checks |

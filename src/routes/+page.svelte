@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import EntryPass from '#lib/components/journal/EntryPass.svelte';
 	import Hero from '#lib/components/journal/Hero.svelte';
 	import PhotoStrip from '#lib/components/journal/PhotoStrip.svelte';
@@ -21,7 +22,7 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
-	<meta property="og:image" content="https://softskilllabs.com/uploads/soft-skills-lab-kids-flask-experiment.webp" />
+	<meta property="og:image" content={new URL(photos[0].src, page.url.href).href} />
 </svelte:head>
 
 <SiteHeader />

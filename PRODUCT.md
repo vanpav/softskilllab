@@ -4,7 +4,7 @@
 web
 
 ## Stack
-SvelteKit with SSR through `adapter-node`.
+SvelteKit with SSR on Cloudflare Workers.
 
 ## Users
 Parents in Akko (Acre), Israel, Russian-speaking, choosing an after-school group for a child aged 6–16 — often looking at the page together with the child. Includes active kids and kids with ADHD.
