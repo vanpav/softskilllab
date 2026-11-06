@@ -42,11 +42,14 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 - Keep shadcn components free of stock looks: new primitives take journal tokens, square corners and the global dashed focus outline.
 - Experiment details, the start date, availability, the photos and the portrait slot are unconfirmed: see Open Decisions in `PRODUCT.md`. Don't present them as fact.
 - The variants are published as a public artifact (https://claude.ai/artifact/EXPLnk1vYKGTwGCfhH5Cgc). Ask before republishing.
+- The logo presentation `variants/logo-final.html` is a second public artifact (https://claude.ai/artifact/KZA25A4XkMoxByDykdeVUP). Ask before republishing; its photos sit in `variants/img/` and are published with it.
+- Logo files live in `src/lib/assets/logo/`; follow the lockup rules in `BRAND.md`.
 
 ## Where to look
 
 - `PRODUCT.md` — audience, facts, open decisions
 - `DESIGN.md` — tokens, components, rules
+- `BRAND.md` — chosen logo, wordmark, lockup rules, logo files
 - `.impeccable/surfaces/variants-b-notebook-html.md` — direction contract
 
 ## Work rules

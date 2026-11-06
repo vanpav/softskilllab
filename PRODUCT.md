@@ -17,7 +17,7 @@ Not a science club and not a psychologist's office: a group where kids learn to 
 
 ## Brand Commitments
 - Name: Soft Skills Lab / Лаборатория Soft Skills. Slogan on logo: «Экспериментируй, познавай, расти».
-- Logo: flask with a child's profile and coloured bubbles (green, blue, orange, pink), navy wordmark.
+- Logo: chosen on 2026-11-06, replaces the old flask-with-profile logo: two clinking flasks on a lime marker patch, wordmark with "Lab" on a lime blob. Rules and files: `BRAND.md`.
 - Mascot: Пушистик, a fluffy alien with round glasses who accompanies every child. The existing artwork shows a teal creature, while the current site's copy calls it purple.
 - The user chose «Журнал опытов» (`variants/b-notebook.html`) as the new visual direction on 2026-11-06. The current site's palette (violet + lime on near-black) is no longer authority; DESIGN.md owns the visual system.
 
