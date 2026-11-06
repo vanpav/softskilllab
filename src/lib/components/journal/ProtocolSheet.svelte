@@ -165,6 +165,8 @@
 		cursor: pointer;
 		display: none;
 		padding: 0;
+		/* Phones flash a grey box over the button's whole rectangle on tap. */
+		-webkit-tap-highlight-color: transparent;
 		font-family: var(--hand);
 		font-size: 28px;
 		font-weight: 700;
@@ -173,7 +175,7 @@
 		transform-origin: top center;
 		/* Always on its own layer: being promoted on click re-rasterises the text and shadow, which flickers. */
 		will-change: transform;
-		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), --curl 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: --curl 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	:global(.js) .peel {
 		display: flex;
@@ -195,7 +197,6 @@
 		position: absolute;
 		inset: 0;
 		filter: drop-shadow(0 6px 8px rgba(20, 30, 80, 0.16));
-		transition: filter 0.3s;
 	}
 	.paper {
 		position: absolute;
@@ -228,12 +229,11 @@
 		color: var(--note-soft);
 		opacity: 0.65;
 	}
-	.peel:hover {
-		--curl: calc(var(--curl-rest) + 14px);
-		transform: rotate(calc(var(--tilt) + 2deg)) translateY(-3px);
-	}
-	.peel:hover .note {
-		filter: drop-shadow(0 12px 14px rgba(20, 30, 80, 0.22));
+	/* Touch screens keep :hover after a tap, which would start the corner moving right as the peel begins. */
+	@media (hover: hover) {
+		.peel:hover {
+			--curl: calc(var(--curl-rest) + 14px);
+		}
 	}
 	.flap,
 	.back {

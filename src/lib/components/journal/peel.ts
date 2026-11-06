@@ -98,19 +98,10 @@ export function peelAway(button: HTMLElement) {
 	return new Promise<void>((resolve) => {
 		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return resolve();
 
-		// Leaving :hover would otherwise snap the note's angle, fold and shadow back to rest mid-peel.
-		const style = getComputedStyle(button);
-		const curl = parseFloat(style.getPropertyValue('--curl')) || 50;
-		const transform = style.transform;
+		// Leaving :hover would otherwise snap the fold back to rest mid-peel.
+		const curl = parseFloat(getComputedStyle(button).getPropertyValue('--curl')) || 50;
 		button.style.transition = 'none';
-		button.style.transform = transform;
 		button.style.setProperty('--curl', `${curl}px`);
-		const note = button.querySelector<HTMLElement>('.note');
-		if (note) {
-			const filter = getComputedStyle(note).filter;
-			note.style.transition = 'none';
-			note.style.filter = filter;
-		}
 
 		const draw = prepare(button, curl);
 		const start = performance.now();

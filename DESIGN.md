@@ -298,7 +298,7 @@ Depth is physical: objects lie on paper and cast soft, wide, navy-tinted shadows
 - **Snapshot lift** (`box-shadow: 0 12px 24px rgba(20,30,80,.12)`): Small photo prints.
 - **Sticker lift** (`box-shadow: 0 10px 18px rgba(20,30,80,.25)`): The round mascot sticker.
 - **Permit lift** (`box-shadow: 0 24px 48px rgba(20,30,80,.25)`): The dark entry pass.
-- **Note lift** (`filter: drop-shadow(0 6px 8px rgba(20,30,80,.16))`, hover `drop-shadow(0 12px 14px rgba(20,30,80,.22))`, so the shadow follows the curled edge; the fold casts `drop-shadow(0 6px 10px rgba(20,30,80,.3))` while peeling): Sticky notes, deepening as they leave the page.
+- **Note lift** (`filter: drop-shadow(0 6px 8px rgba(20,30,80,.16))`, so the shadow follows the curled edge; the fold casts `drop-shadow(0 6px 10px rgba(20,30,80,.3))` while peeling): Sticky notes.
 - **Button lift** (`box-shadow: 0 6px 14px rgba(20,30,80,.28)`, hover `0 3px 8px rgba(20,30,80,.3)`): The pen button, tightening as it presses in.
 - **Stamp lift** (`box-shadow: 0 8px 18px rgba(0,0,0,.35)`, hover `0 4px 10px rgba(0,0,0,.4)`): The stamp button; neutral black because it sits on the dark block.
 - **Tape edge** (`box-shadow: 0 1px 3px rgba(0,0,0,.08)`): Tape, barely lifted.
@@ -357,8 +357,8 @@ The signature interaction: a sticky note covering a protocol's conclusion. Its f
 - **Rest:** Square paper with a soft diagonal gradient, lighter toward the curl, hinged at the centre of its top edge, overhanging the column by 6–9px and leaving the column label visible above it. No adhesive strip.
 - **Curl:** One bottom corner is folded over along a straight diagonal, showing the darker back of the note with a highlight on the fold, over a navy shadow on the sheet. This is the first frame of the peel, so the note starts moving without a jump. A sheet-coloured layer beneath keeps the conclusion hidden until then. Odd sheets fold left, even sheets fold right.
 - **Variation:** Each of the six notes has its own fold size (34–64px), tilt (-1.5deg to 2.5deg), overhang and a slight tilt of its text, so no two look stamped.
-- **Hover:** Lifts 3px up, tilts 2deg further and folds 14px more, with a deeper Note lift, on 0.55s `cubic-bezier(.5,-.3,.3,1.2)`.
-- **Peeled:** On click the note is pulled off sideways by its curled corner, over 0.65s, speeding up the whole way (progress to the power 2.2). It starts from the note's current angle, fold and shadow, so a note clicked on hover keeps its hover tilt and its Note lift to the end. The corner travels up and across the note, the note folds along a straight line that sweeps past it, and the folded part shows its darker back with a highlight on the fold. Near the end it drifts on and fades. Text on the note folds away with the paper. The geometry is in `journal/peel.ts`. With reduced motion the note disappears at once. The note stays removed and focus moves to the revealed writing.
+- **Hover:** The corner folds 14px further over 0.3s `cubic-bezier(.16,1,.3,1)`. The note itself stays still. Only on devices that really hover, so a tap on a phone goes straight to the peel.
+- **Peeled:** On click the note is pulled off sideways by its curled corner, over 0.65s, speeding up the whole way (progress to the power 2.2). It starts from the note's current fold. The corner travels up and across the note, the note folds along a straight line that sweeps past it, and the folded part shows its darker back with a highlight on the fold. Near the end it drifts on and fades. Text on the note folds away with the paper. The geometry is in `journal/peel.ts`. With reduced motion the note disappears at once. The note stays removed and focus moves to the revealed writing.
 - **Peel all:** A hand link button lifts every remaining note in sequence, 110ms apart.
 - **Without JavaScript:** Notes are not rendered, so every conclusion is simply visible.
 
