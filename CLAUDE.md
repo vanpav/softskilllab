@@ -24,8 +24,9 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 ## Structure
 
 - `src/routes/+page.svelte` — the landing page, with head and meta
+- `src/routes/+page.server.ts` — picks the random hero photo per request
 - `src/routes/layout.css` — journal tokens, shadcn role mapping, global rules
-- `src/lib/content.ts` — page copy that repeats or lists (protocols, roster, contacts)
+- `src/lib/content.ts` — page copy that repeats or lists (protocols, roster, photos, contacts)
 - `src/lib/components/journal/` — page sections and their scoped CSS
 - `src/lib/components/ui/` — shadcn-svelte components, ours to edit; Button holds `pen`, `stamp`, `pencil`
 - `src/lib/assets/` — images; `*.webp.json` beside each records its origin

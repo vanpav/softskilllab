@@ -1,3 +1,9 @@
+import chemistry from '#lib/assets/color-chemistry-experiment.webp';
+import flask from '#lib/assets/kids-flask-experiment.webp';
+import slime from '#lib/assets/slime-experiment.webp';
+import blocks from '#lib/assets/team-building-blocks.webp';
+import map from '#lib/assets/treasure-map-compass.webp';
+
 export const PHONE_DISPLAY = '+972 53-378-9931';
 export const PHONE_HREF = 'tel:+972533789931';
 export const EMAIL = 'annasmorodinskaa@gmail.com';
@@ -103,5 +109,41 @@ export const credentials = [
 	{
 		title: 'Бизнес-коуч',
 		text: 'Много лет учила soft skills взрослых в крупных компаниях. Теперь учит детей.'
+	}
+];
+
+export type Photo = { src: string; alt: string; heroCaption: string; caption: string };
+
+// One goes to the hero at random, the rest to the photo strip, so none repeats on a page.
+export const photos: Photo[] = [
+	{
+		src: flask,
+		alt: 'Мальчик и девочка вместе держат колбу с голубой жидкостью',
+		heroCaption: 'Одна колба на двоих. Сначала договорись, кто держит.',
+		caption: 'кто держит колбу?'
+	},
+	{
+		src: blocks,
+		alt: 'Трое мальчиков вместе собирают конструкцию из цветных деталей',
+		heroCaption: 'Инженерный челлендж. Собрать можно только втроём.',
+		caption: 'втроём держать легче'
+	},
+	{
+		src: slime,
+		alt: 'Дети месят зелёный слайм в общей миске',
+		heroCaption: 'Слайм на всех. Руки в одной миске.',
+		caption: 'слайм на всех'
+	},
+	{
+		src: chemistry,
+		alt: 'Девочка капает пипеткой краситель в колбу, за ней смотрят другие дети',
+		heroCaption: 'Химия цвета. Все смотрят на одну каплю.',
+		caption: 'все смотрят на одну каплю'
+	},
+	{
+		src: map,
+		alt: 'Мальчик и девочка прокладывают маршрут по карте',
+		heroCaption: 'Карта целей. Сначала решите, куда идём.',
+		caption: 'куда идём?'
 	}
 ];

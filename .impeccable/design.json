@@ -468,7 +468,7 @@
       {
         "name": "peel-lift",
         "value": "0.6s cubic-bezier(.16,1,.3,1)",
-        "purpose": "Perspective lift hinged on the note's top edge; fade runs 0.25s after a 0.35s delay."
+        "purpose": "Static reference only: perspective lift hinged on the top edge. The site pulls the note off by its curled corner, see journal/peel.ts."
       },
       {
         "name": "peel-stagger",
@@ -546,7 +546,7 @@
       "name": "Peel Notes",
       "kind": "custom",
       "refersTo": "peel-note-yellow",
-      "description": "The yellow, pink, and green rotation, each note asking its own question. Hover lifts a note; pressing here previews the hinged peel, which the page makes permanent on click.",
+      "description": "The yellow, pink, and green rotation, each note asking its own question, with a curled bottom corner and its own curl size and tilt. Hover lifts a note; pressing here previews the hinged peel, which the page makes permanent on click.",
       "html": "<div class=\"ds-peels\"><button class=\"ds-peel\" type=\"button\">а при чём тут крик?<small>отклейте</small></button><button class=\"ds-peel\" type=\"button\">а кому верить?<small>отклейте</small></button><button class=\"ds-peel\" type=\"button\">как не поссориться?<small>отклейте</small></button></div>",
       "css": ".ds-peels{display:flex;flex-wrap:wrap;gap:24px;padding-bottom:48px} .ds-peel{width:200px;min-height:140px;background:var(--sticky,#ffe76a);border:0;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:14px;text-align:center;font-family:var(--hand,\"Caveat\",\"Comic Sans MS\",cursive);font-size:28px;font-weight:700;color:var(--sticky-ink,#5a4300);box-shadow:0 10px 18px rgba(20,30,80,.18);transform:rotate(2deg);transform-origin:top center;transition:transform .55s cubic-bezier(.5,-.3,.3,1.2),opacity .4s .25s,box-shadow .3s} .ds-peel small{font-family:var(--sans,\"Onest\",system-ui,sans-serif);font-size:13px;font-weight:600;color:var(--sticky-ink-soft,#7a5d00)} .ds-peel:nth-child(2){background:var(--sticky-pink,#ffc2dc);color:var(--sticky-pink-ink,#6b1a3d)} .ds-peel:nth-child(2) small{color:var(--sticky-pink-ink-soft,#8a2a52)} .ds-peel:nth-child(3){background:var(--sticky-green,#c7f0a6);color:var(--sticky-green-ink,#234a10)} .ds-peel:nth-child(3) small{color:var(--sticky-green-ink-soft,#2f5e17)} .ds-peel:hover{transform:rotate(4deg) translateY(-3px);box-shadow:0 16px 24px rgba(20,30,80,.22)} .ds-peel:focus-visible{outline:3px dashed var(--pen,#1f3fc4);outline-offset:4px} .ds-peel:active{transform:perspective(700px) translateY(-18px) rotateX(-78deg);opacity:0;box-shadow:0 40px 40px rgba(20,30,80,.28);transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s cubic-bezier(.16,1,.3,1),opacity .25s .35s}"
     },

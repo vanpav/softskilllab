@@ -86,6 +86,10 @@
 		font-weight: 600;
 		text-decoration: underline;
 		text-underline-offset: 5px;
+		transition: color 0.15s;
+	}
+	.tel:hover {
+		color: var(--marker);
 	}
 	@media (max-width: 900px) {
 		.permit {

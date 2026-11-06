@@ -1,8 +1,9 @@
 <script lang="ts">
-	import flaskPhoto from '#lib/assets/kids-flask-experiment.webp';
 	import pushistik from '#lib/assets/pushistik.webp';
 	import { Button } from '#lib/components/ui/button/index.js';
-	import { WHATSAPP_HREF } from '#lib/content.js';
+	import { WHATSAPP_HREF, type Photo } from '#lib/content.js';
+
+	let { photo }: { photo: Photo } = $props();
 </script>
 
 <section class="hero">
@@ -28,10 +29,10 @@
 		</div>
 		<figure class="polaroid">
 			<span class="tape" aria-hidden="true"></span>
-			<img src={flaskPhoto} alt="Мальчик и девочка вместе держат колбу с голубой жидкостью" />
+			<img src={photo.src} alt={photo.alt} />
 			<img class="sticker" src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" />
 			<span class="sticker-say" aria-hidden="true">я тоже тут!</span>
-			<figcaption>Одна колба на двоих. Сначала договорись, кто держит.</figcaption>
+			<figcaption>{photo.heroCaption}</figcaption>
 		</figure>
 	</div>
 </section>

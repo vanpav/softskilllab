@@ -7,6 +7,9 @@
 	import SiteFooter from '#lib/components/journal/SiteFooter.svelte';
 	import SiteHeader from '#lib/components/journal/SiteHeader.svelte';
 	import Teacher from '#lib/components/journal/Teacher.svelte';
+	import { photos } from '#lib/content.js';
+
+	let { data } = $props();
 
 	const title = 'Soft Skills Lab — мини-группы для детей 6–16 лет, Акко';
 	const description = 'Мини-группы до 6 детей 6–16 лет в Акко. Научные опыты, на которых дети учатся договариваться, слушать и не бояться ошибок.';
@@ -23,10 +26,10 @@
 
 <SiteHeader />
 <main>
-	<Hero />
+	<Hero photo={photos[data.heroPhoto]} />
 	<Roster />
 	<Protocols />
-	<PhotoStrip />
+	<PhotoStrip photos={photos.filter((_, i) => i !== data.heroPhoto)} />
 	<Teacher />
 	<EntryPass />
 </main>

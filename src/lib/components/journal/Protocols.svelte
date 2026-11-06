@@ -27,11 +27,14 @@
 
 <section class="protocols" id="protocols">
 	<div class="wrap">
-		<h2>Протоколы опытов на целый год</h2>
-		<p class="sub">Шесть блоков программы. Слева то, что происходит в колбе. Справа, под стикером, то, что происходит между детьми. Отклейте стикер.</p>
-		{#if !allPeeled}
-			<Button variant="pencil" size="pencil" class="mt-[18px] hidden [.js_&]:inline-flex" onclick={peelAll}>отклеить все стикеры</Button>
-		{/if}
+		<div class="head">
+			<div>
+				<h2>Протоколы опытов на целый год</h2>
+				<p class="sub">Шесть блоков программы. Слева то, что происходит в колбе. Справа, под стикером, то, что происходит между детьми. Отклейте стикер.</p>
+			</div>
+			<!-- Hidden rather than removed: its row keeps the sheets from jumping up on phones. -->
+			<Button variant="pencil" size="pencil" class="hidden [.js_&]:inline-flex {allPeeled ? 'invisible' : ''}" onclick={peelAll}>отклеить все стикеры</Button>
+		</div>
 		<div class="proto-list">
 			{#each protocols as protocol, i (protocol.title)}
 				<ProtocolSheet {protocol} number={i + 1} peeled={peeled[i]} onpeel={() => peel(i)} />
@@ -43,6 +46,13 @@
 <style>
 	.protocols {
 		padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 8vw, 120px);
+		overflow-x: clip; /* a note being pulled sideways must not widen the page */
+	}
+	.head {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: end;
+		gap: 18px 32px;
 	}
 	h2 {
 		font-size: clamp(36px, 5vw, 72px);
@@ -58,5 +68,11 @@
 		margin-top: clamp(36px, 5vw, 64px);
 		display: grid;
 		gap: clamp(24px, 3vw, 40px);
+	}
+	@media (max-width: 900px) {
+		.head {
+			grid-template-columns: minmax(0, 1fr);
+			justify-items: start;
+		}
 	}
 </style>

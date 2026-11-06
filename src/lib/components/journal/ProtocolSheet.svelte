@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Protocol } from '#lib/content.js';
 	import Doodle from './Doodle.svelte';
+	import { peelAway } from './peel.js';
 
 	let {
 		protocol,
@@ -8,6 +9,13 @@
 		peeled,
 		onpeel
 	}: { protocol: Protocol; number: number; peeled: boolean; onpeel: () => void } = $props();
+
+	let button = $state<HTMLButtonElement>();
+	let gone = $state(false);
+
+	$effect(() => {
+		if (peeled && button) peelAway(button).then(() => (gone = true));
+	});
 </script>
 
 <article class="proto">
@@ -30,19 +38,31 @@
 		</p>
 		<p class="take"><b>Ребёнок уносит:</b> {protocol.takeaway}</p>
 		<button
+			bind:this={button}
 			class="peel"
-			class:gone={peeled}
+			class:peeling={peeled}
+			class:gone
 			type="button"
 			tabindex={peeled ? -1 : undefined}
 			aria-label="{protocol.question} отклейте, чтобы открыть вывод опыта {number}"
 			onclick={onpeel}
 		>
-			{protocol.question}<small>отклейте</small>
+			<span class="under" aria-hidden="true"></span>
+			<span class="note" aria-hidden="true">
+				<span class="paper"><span class="face">{protocol.question}<small>отклейте</small></span></span>
+				<span class="flap"><span class="curl"></span><span class="back"></span></span>
+			</span>
 		</button>
 	</div>
 </article>
 
 <style>
+	/* Registered so the curl can animate as a length on hover. */
+	@property --curl {
+		syntax: '<length>';
+		inherits: true;
+		initial-value: 72px;
+	}
 	.proto {
 		position: relative;
 		display: grid;
@@ -117,61 +137,184 @@
 		color: var(--ink);
 	}
 	.peel {
+		--note: var(--sticky);
+		--note-fold: #e3a428;
+		--note-soft: var(--sticky-ink-soft);
+		--curl-rest: 50px;
+		--curl: var(--curl-rest);
+		--tilt: 2deg;
+		--overhang-l: -6px;
+		--overhang-r: -6px;
+		--face-tilt: 0deg;
+		--light-to: to top right;
+		--curl-side: left;
+		--rest-side: right;
+		--curl-l: 0;
+		--curl-r: auto;
+		--shadow-at: 72% 28%;
+		--paper-clip: polygon(0 0, 100% 0, 100% 100%, var(--curl) 100%, 0 calc(100% - var(--curl)));
+		--flap-clip: polygon(0 0, 100% 0, 100% 100%);
+		--flap-angle: 45deg;
+		--back-dark: color-mix(in srgb, var(--note-fold) 82%, black);
+		--back-light: color-mix(in srgb, var(--note), white 30%);
+		--back-mid: color-mix(in srgb, var(--note) 45%, var(--note-fold));
 		position: absolute;
-		inset: 26px -6px -6px -6px;
-		background: var(--sticky);
+		inset: 26px var(--overhang-r) -6px var(--overhang-l);
+		background: none;
 		border: 0;
 		cursor: pointer;
 		display: none;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 6px;
-		padding: 14px;
-		text-align: center;
+		padding: 0;
 		font-family: var(--hand);
 		font-size: 28px;
 		font-weight: 700;
 		color: var(--sticky-ink);
-		box-shadow: 0 10px 18px rgba(20, 30, 80, 0.18);
-		transform: rotate(2deg);
+		transform: rotate(var(--tilt));
 		transform-origin: top center;
-		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
+		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), --curl 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	:global(.js) .peel {
 		display: flex;
+	}
+	/* The corner is cut out of the paper, so this keeps the conclusion hidden beneath it. */
+	.under,
+	.curl {
+		position: absolute;
+		bottom: 0;
+		left: var(--curl-l);
+		right: var(--curl-r);
+		width: var(--curl);
+		height: var(--curl);
+	}
+	.under {
+		background: radial-gradient(circle at var(--shadow-at), rgba(20, 30, 80, 0.34), rgba(20, 30, 80, 0) 62%), var(--sheet);
+	}
+	.note {
+		position: absolute;
+		inset: 0;
+		filter: drop-shadow(0 6px 8px rgba(20, 30, 80, 0.16));
+		transition: filter 0.3s;
+	}
+	.paper {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		background: linear-gradient(var(--light-to), color-mix(in srgb, var(--note), white 42%), color-mix(in srgb, var(--note) 90%, var(--note-fold)));
+		clip-path: var(--paper-clip);
+	}
+	/* Same fold and same colour stops as applyPeel at progress 0, so the first frame doesn't jump. */
+	.curl {
+		background: linear-gradient(var(--flap-angle), var(--back-dark) 50%, var(--back-light) calc(50% + 16px), var(--back-mid) calc(50% + 90px));
+		clip-path: var(--flap-clip);
+	}
+	.face {
+		position: relative;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 6px;
+		padding: 14px 18px;
+		text-align: center;
+		transform: rotate(var(--face-tilt));
 	}
 	.peel small {
 		font-family: var(--sans);
 		font-size: 13px;
 		font-weight: 600;
-		color: var(--sticky-ink-soft);
+		color: var(--note-soft);
+		opacity: 0.65;
 	}
 	.peel:hover {
-		transform: rotate(4deg) translateY(-3px);
-		box-shadow: 0 16px 24px rgba(20, 30, 80, 0.22);
+		--curl: calc(var(--curl-rest) + 14px);
+		transform: rotate(calc(var(--tilt) + 2deg)) translateY(-3px);
 	}
-	.peel.gone {
-		transform: perspective(700px) translateY(-18px) rotateX(-78deg);
-		opacity: 0;
-		box-shadow: 0 40px 40px rgba(20, 30, 80, 0.28);
-		pointer-events: none;
+	.peel:hover .note {
+		filter: drop-shadow(0 12px 14px rgba(20, 30, 80, 0.22));
+	}
+	.flap,
+	.back {
+		position: absolute;
+		inset: 0;
+	}
+	.flap {
+		filter: drop-shadow(0 6px 10px rgba(20, 30, 80, 0.3));
+	}
+	.back {
+		transform-origin: 0 0;
 		visibility: hidden;
-		transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s 0.35s, visibility 0s 0.6s;
+	}
+	.peel.peeling {
+		pointer-events: none;
+	}
+	.peeling .under {
+		opacity: 0;
+		transition: opacity 0.15s;
+	}
+	.peeling .curl {
+		visibility: hidden;
+	}
+	.peeling .back {
+		visibility: visible;
+	}
+	.peel.gone,
+	.gone .back {
+		visibility: hidden;
+	}
+	.proto:nth-child(even) .peel {
+		--light-to: to top left;
+		--curl-side: right;
+		--rest-side: left;
+		--curl-l: auto;
+		--curl-r: 0;
+		--shadow-at: 28% 28%;
+		--paper-clip: polygon(0 0, 100% 0, 100% calc(100% - var(--curl)), calc(100% - var(--curl)) 100%, 0 100%);
+		--flap-clip: polygon(0 0, 100% 0, 0 100%);
+		--flap-angle: -45deg;
 	}
 	.proto:nth-child(3n + 2) .peel {
-		background: var(--sticky-pink);
+		--note: var(--sticky-pink);
+		--note-fold: #df74a4;
+		--note-soft: var(--sticky-pink-ink-soft);
 		color: var(--sticky-pink-ink);
 	}
-	.proto:nth-child(3n + 2) .peel small {
-		color: var(--sticky-pink-ink-soft);
-	}
 	.proto:nth-child(3n) .peel {
-		background: var(--sticky-green);
+		--note: var(--sticky-green);
+		--note-fold: #82bd58;
+		--note-soft: var(--sticky-green-ink-soft);
 		color: var(--sticky-green-ink);
 	}
-	.proto:nth-child(3n) .peel small {
-		color: var(--sticky-green-ink-soft);
+	.proto:nth-child(1) .peel {
+		--curl-rest: 60px;
+	}
+	.proto:nth-child(2) .peel {
+		--curl-rest: 44px;
+		--tilt: -1.5deg;
+		--overhang-r: -9px;
+		--face-tilt: 1deg;
+	}
+	.proto:nth-child(3) .peel {
+		--curl-rest: 34px;
+		--tilt: 1deg;
+		--overhang-l: -9px;
+		--face-tilt: -1.5deg;
+	}
+	.proto:nth-child(4) .peel {
+		--curl-rest: 50px;
+		--tilt: 2.5deg;
+		--face-tilt: -1deg;
+	}
+	.proto:nth-child(5) .peel {
+		--curl-rest: 40px;
+		--tilt: -1deg;
+		--overhang-r: -9px;
+		--face-tilt: 1.5deg;
+	}
+	.proto:nth-child(6) .peel {
+		--curl-rest: 64px;
+		--tilt: 1.5deg;
+		--overhang-l: -9px;
 	}
 	@media (max-width: 900px) {
 		.proto {

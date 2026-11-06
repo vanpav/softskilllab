@@ -34,5 +34,9 @@
 		color: var(--pen);
 		text-decoration: underline;
 		text-underline-offset: 4px;
+		transition: color 0.15s;
+	}
+	a:hover {
+		color: var(--pink-text);
 	}
 </style>

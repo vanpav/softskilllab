@@ -1,15 +1,7 @@
 <script lang="ts">
-	import chemistry from '#lib/assets/color-chemistry-experiment.webp';
-	import slime from '#lib/assets/slime-experiment.webp';
-	import blocks from '#lib/assets/team-building-blocks.webp';
-	import map from '#lib/assets/treasure-map-compass.webp';
+	import type { Photo } from '#lib/content.js';
 
-	const photos = [
-		{ src: blocks, alt: 'Трое мальчиков вместе собирают конструкцию из цветных деталей', caption: 'втроём держать легче' },
-		{ src: slime, alt: 'Дети месят зелёный слайм в общей миске', caption: 'слайм на всех' },
-		{ src: chemistry, alt: 'Девочка капает пипеткой краситель в колбу, за ней смотрят другие дети', caption: 'все смотрят на одну каплю' },
-		{ src: map, alt: 'Мальчик и девочка прокладывают маршрут по карте', caption: 'куда идём?' }
-	];
+	let { photos }: { photos: Photo[] } = $props();
 </script>
 
 <section class="strip" aria-label="Как это выглядит">

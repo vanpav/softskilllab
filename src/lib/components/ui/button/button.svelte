@@ -13,9 +13,9 @@
 				ghost: "hover:bg-muted hover:text-foreground dark:hover:bg-muted/50 aria-expanded:bg-muted aria-expanded:text-foreground",
 				destructive: "bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30",
 				link: "text-primary underline-offset-4 hover:underline",
-				pen: "rounded-full bg-primary text-primary-foreground font-semibold shadow-[0_6px_14px_rgba(20,30,80,.28)] hover:translate-y-0.5 hover:shadow-[0_3px_8px_rgba(20,30,80,.3)]",
-				stamp: "rounded-[12px] bg-accent text-accent-foreground font-extrabold -rotate-2 shadow-[0_8px_18px_rgba(0,0,0,.35)] hover:translate-y-[3px] hover:shadow-[0_4px_10px_rgba(0,0,0,.4)]",
-				pencil: "font-hand text-primary underline underline-offset-[5px]",
+				pen: "rounded-full bg-primary text-primary-foreground font-semibold shadow-[0_6px_14px_rgba(20,30,80,.28)] hover:translate-y-0.5 hover:bg-[var(--ink)] hover:shadow-[0_3px_8px_rgba(20,30,80,.3)]",
+				stamp: "rounded-[12px] bg-accent text-accent-foreground font-extrabold -rotate-2 shadow-[0_8px_18px_rgba(0,0,0,.35)] hover:translate-y-[3px] hover:bg-[var(--sheet)] hover:shadow-[0_4px_10px_rgba(0,0,0,.4)]",
+				pencil: "cursor-pointer font-hand text-primary underline underline-offset-[5px] hover:text-[var(--pink-text)]",
 			},
 			size: {
 				default: "h-9 gap-1.5 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",

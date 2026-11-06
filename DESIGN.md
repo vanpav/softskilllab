@@ -230,7 +230,7 @@ A cool paper-and-ink palette: stationery neutrals, one ballpoint blue, and one l
 - **Highlighter Lime** (#e4ff4f): The marker stroke behind a highlighted phrase, text selection, the stamp button, and handwriting and the focus outline on the dark block.
 
 ### Tertiary
-- **Correction Pink** (#cc1f62): The one pink outside the sticky notes: the hand-drawn arrow, the wavy nav underline, the roster's month, and its empty seats (5.33:1 on white, 5.2:1 on paper).
+- **Correction Pink** (#cc1f62): The one pink outside the sticky notes: the hand-drawn arrow, the wavy nav underline, the roster's month, its empty seats, and text links on hover (5.33:1 on white, 5.2:1 on paper).
 - **Check Green** (#2b8a4e): The hand-drawn check marks in a credentials list (4.22:1 on paper).
 - **Yellow Tape** (rgba(255,231,106,.75)): The only tape, Yellow Sticky at 75%.
 - **Yellow Sticky** (#ffe76a) with **Umber Sticky Ink** (#5a4300) and **Soft Umber** (#7a5d00): First note colour.
@@ -298,7 +298,7 @@ Depth is physical: objects lie on paper and cast soft, wide, navy-tinted shadows
 - **Snapshot lift** (`box-shadow: 0 12px 24px rgba(20,30,80,.12)`): Small photo prints.
 - **Sticker lift** (`box-shadow: 0 10px 18px rgba(20,30,80,.25)`): The round mascot sticker.
 - **Permit lift** (`box-shadow: 0 24px 48px rgba(20,30,80,.25)`): The dark entry pass.
-- **Note lift** (`box-shadow: 0 10px 18px rgba(20,30,80,.18)`, hover `0 16px 24px rgba(20,30,80,.22)`, peeling `0 40px 40px rgba(20,30,80,.28)`): Sticky notes, deepening as they leave the page.
+- **Note lift** (`filter: drop-shadow(0 6px 8px rgba(20,30,80,.16))`, hover `drop-shadow(0 12px 14px rgba(20,30,80,.22))`, so the shadow follows the curled edge; the fold casts `drop-shadow(0 6px 10px rgba(20,30,80,.3))` while peeling): Sticky notes, deepening as they leave the page.
 - **Button lift** (`box-shadow: 0 6px 14px rgba(20,30,80,.28)`, hover `0 3px 8px rgba(20,30,80,.3)`): The pen button, tightening as it presses in.
 - **Stamp lift** (`box-shadow: 0 8px 18px rgba(0,0,0,.35)`, hover `0 4px 10px rgba(0,0,0,.4)`): The stamp button; neutral black because it sits on the dark block.
 - **Tape edge** (`box-shadow: 0 1px 3px rgba(0,0,0,.08)`): Tape, barely lifted.
@@ -323,7 +323,8 @@ The page is built in SvelteKit: tokens and global rules live in `src/routes/layo
 Tactile and physical: on hover they press into the page and their shadow tightens, over 0.15s. Every focusable element shows a 3px dashed outline at 4px offset, Ballpoint Blue on paper and lime on the dark block.
 - **Pen button:** A Ballpoint Blue pill with white Onest 600 text, 48px high, or 56px with 26px of padding in a call-to-action row, and 44px with 16px of padding in the header at 900px and below. It moves down 2px on hover, uses Button lift, and may lead with an inline WhatsApp icon.
 - **Stamp button:** The entry pass's primary action. A lime block with 12px corners, Black Ink Onest 800, 64px high, tilted -2deg like a rubber stamp, with Stamp lift. It moves down 3px on hover, keeping its tilt. At 600px and below it drops to 16px text and 18px of side padding, keeping at least 64px of height.
-- **Hand link button:** A bare underlined line of blue Caveat (24px) with no fill or border, used for «отклеить все стикеры». It exists only with JavaScript and is removed once every note is peeled.
+- **Hover colour:** Every link and button changes colour on hover: text links and the hand link button turn Correction Pink, the phone link on the dark block turns lime, the pen button turns Black Ink, the stamp turns white.
+- **Hand link button:** A bare underlined line of blue Caveat (24px) with no fill or border, used for «отклеить все стикеры». It exists only with JavaScript and sits at the right of the section head, or under the intro at 900px and below. Once every note is peeled it hides but keeps its place, so the sheets don't move.
 
 ### Navigation
 Plain Onest 500 links at 16px in Faded Ink, with no container. On hover they turn Ballpoint Blue with a wavy Correction Pink underline at 6px offset. Below 900px they spread across a full-width row with 44px tap height. The flask-only logo mark (44px) sits beside a bold typeset wordmark and a handwritten line, «журнал опытов».
@@ -335,6 +336,9 @@ Plain Onest 500 links at 16px in Faded Ink, with no container. On hover they tur
 - **Border:** None. Sheets are defined by their shadow and their contrast with the grid.
 - **Internal Padding:** Fluid, from 20px up to 36px; photo prints use a fixed 10–14px with a deeper bottom edge and a handwritten caption.
 
+### Hero Print
+The taped print on the first screen shows one of the five photos, picked at random on the server for each page load, with that photo's own handwritten caption. The photo strip further down shows the other four, so no photo repeats on a page.
+
 ### Tape
 A 120 × 34px strip of Yellow Tape with faint dashed cut ends, placed across a sheet's top edge at a slight angle. A sheet held by two strips, like the roster, narrows them to 96px.
 
@@ -342,11 +346,13 @@ A 120 × 34px strip of Yellow Tape with faint dashed cut ends, placed across a s
 A form-like sheet whose first column holds the experiment heading, a handwritten number over a bold 15px block title, and an 84px line-drawn doodle (hidden at 900px and below). The other columns each open with a label over a 2px Black Ink rule. The experiment steps stay in print; the last column holds the handwritten conclusion.
 
 ### Peel Note
-The signature interaction: a sticky note covering a protocol's conclusion. Its face asks that experiment's own question in Caveat, such as «а при чём тут крик?», over the small Onest verb «отклейте».
+The signature interaction: a sticky note covering a protocol's conclusion. Its face asks that experiment's own question in Caveat, such as «а при чём тут крик?», over the small Onest verb «отклейте» at 65% opacity.
 - **Colour rotation:** Yellow, pink, green, repeating by sheet position, each with its own two inks.
-- **Rest:** Square, tilted 2deg, hinged at the centre of its top edge, overhanging the column by 6px and leaving the column label visible above it.
-- **Hover:** Lifts 3px up and tilts 2deg further, with a deeper Note lift, on 0.55s `cubic-bezier(.5,-.3,.3,1.2)`.
-- **Peeled:** On click it lifts in perspective, hinged on the top edge (`perspective(700px) translateY(-18px) rotateX(-78deg)`, 0.6s `cubic-bezier(.16,1,.3,1)`), fading over 0.25s after a 0.35s delay. The note stays removed and focus moves to the revealed writing.
+- **Rest:** Square paper with a soft diagonal gradient, lighter toward the curl, hinged at the centre of its top edge, overhanging the column by 6–9px and leaving the column label visible above it. No adhesive strip.
+- **Curl:** One bottom corner is folded over along a straight diagonal, showing the darker back of the note with a highlight on the fold, over a navy shadow on the sheet. This is the first frame of the peel, so the note starts moving without a jump. A sheet-coloured layer beneath keeps the conclusion hidden until then. Odd sheets fold left, even sheets fold right.
+- **Variation:** Each of the six notes has its own fold size (34–64px), tilt (-1.5deg to 2.5deg), overhang and a slight tilt of its text, so no two look stamped.
+- **Hover:** Lifts 3px up, tilts 2deg further and folds 14px more, with a deeper Note lift, on 0.55s `cubic-bezier(.5,-.3,.3,1.2)`.
+- **Peeled:** On click the note is pulled off sideways by its curled corner, over 0.65s, speeding up the whole way (progress to the power 2.2). It starts from the note's current angle and fold, so a note clicked on hover keeps its hover tilt. The corner travels up and across the note, the note folds along a straight line that sweeps past it, and the folded part shows its darker back with a highlight on the fold. Near the end it drifts on and fades. Text on the note folds away with the paper. The geometry is in `journal/peel.ts`. With reduced motion the note disappears at once. The note stays removed and focus moves to the revealed writing.
 - **Peel all:** A hand link button lifts every remaining note in sequence, 110ms apart.
 - **Without JavaScript:** Notes are not rendered, so every conclusion is simply visible.
 
