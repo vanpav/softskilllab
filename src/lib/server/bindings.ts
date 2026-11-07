@@ -1,4 +1,9 @@
-type Bindings = { POSTS?: App.KV; PHOTOS?: App.Bucket; ADMIN_PASSWORD?: string };
+type Bindings = {
+	POSTS?: App.KV;
+	PHOTOS?: App.Bucket;
+	ADMIN_PASSWORD?: string;
+	LOGIN_LIMIT?: { limit(options: { key: string }): Promise<{ success: boolean }> };
+};
 
 /**
  * Cloudflare bindings from `cloudflare:workers`. That module exists only inside workerd (production, and `pnpm dev`

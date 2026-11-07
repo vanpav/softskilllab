@@ -16,6 +16,7 @@
 				<input type="password" name="password" autocomplete="current-password" required autofocus />
 			</label>
 			{#if form?.wrong}<p class="error" role="alert">Пароль не подошёл. Попробуйте ещё раз.</p>{/if}
+			{#if form?.tooMany}<p class="error" role="alert">Слишком много попыток. Подождите минуту и попробуйте снова.</p>{/if}
 			<Button variant="pen" size="pen" type="submit">Войти</Button>
 		{:else}
 			<p class="error" role="alert">Пароль ещё не задан на сервере. Его нужно добавить секретом ADMIN_PASSWORD в Cloudflare.</p>
