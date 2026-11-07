@@ -23,7 +23,8 @@ export const roster: RosterEntry[] = [
 	{ name: '…' }
 ];
 
-export type DoodleName = 'splash' | 'flask' | 'tower' | 'compass' | 'chain' | 'dish';
+export const doodleNames = ['flask', 'splash', 'tower', 'compass', 'chain', 'dish', 'sponge', 'boundary'] as const;
+export type DoodleName = (typeof doodleNames)[number];
 
 export type Protocol = {
 	title: string;

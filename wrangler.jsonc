@@ -7,6 +7,10 @@
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
 	},
+	// No id: `wrangler deploy` creates the namespace on first deploy and keeps it bound to this Worker.
+	"kv_namespaces": [{ "binding": "POSTS" }],
+	// Photos in journal posts; created on first deploy the same way.
+	"r2_buckets": [{ "binding": "PHOTOS" }],
 	"observability": {
 		"enabled": true
 	}

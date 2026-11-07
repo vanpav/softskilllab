@@ -27,6 +27,11 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 - `src/routes/+page.svelte` — the landing page, with head and meta
 - `src/routes/+page.server.ts` — per-request values: random hero photo, current month, New Year season
 - `src/lib/season.ts` — date rules in Akko time (`?date=2027-01-01T12:00:00Z` previews a day in `pnpm dev`; `localStorage.show_ny = true` shows the New Year season on any date)
+- `src/lib/posts.ts` — a post's layout: stored blocks from the visual editor (`content`), or read from plain text by the rules in its header comment
+- `src/lib/server/post-store.ts` — posts in the `POSTS` KV namespace; `src/posts/*.md` are only the first posts, copied into KV on the first /adm visit
+- `src/routes/zhurnal/` — journal list and post pages; `src/routes/adm/` — Аня's visual editor (`src/lib/components/admin/VisualEditor.svelte`) behind `ADMIN_PASSWORD` (`src/lib/server/admin-auth.ts`); the post sheet's styles are shared in `src/lib/components/journal/post-sheet.css`
+- Photos: `PHOTOS` R2 bucket, uploaded at `/adm/upload`, served at `/foto/<key>`; deleted with their post
+- Bindings come from `cloudflare:workers` through `src/lib/server/bindings.ts`, not `event.platform`; locally the password is in gitignored `.dev.vars`; restart `pnpm dev` after changing `wrangler.jsonc`
 - `src/routes/layout.css` — journal tokens, shadcn role mapping, global rules
 - `src/lib/content.ts` — page copy that repeats or lists (protocols, roster, photos, contacts)
 - `src/lib/components/journal/` — page sections and their scoped CSS
@@ -41,7 +46,7 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 - Commit messages are one short line: no body, no mention of Claude, no `Co-Authored-By`.
 - `DESIGN.md` owns the visual system; follow its named rules. Refresh it and `.impeccable/design.json` together after visual changes.
 - Keep shadcn components free of stock looks: new primitives take journal tokens, square corners and the global dashed focus outline.
-- Experiment details, the start date, availability, the photos and the portrait slot are unconfirmed: see Open Decisions in `PRODUCT.md`. Don't present them as fact.
+- Experiment details, the start date, availability, and the photos are unconfirmed: see Open Decisions in `PRODUCT.md`. Don't present them as fact.
 - The design variants were published as a public artifact (https://claude.ai/artifact/EXPLnk1vYKGTwGCfhH5Cgc). Their source was removed from the repo; it is in git history before this change. Ask before republishing.
 - The logo presentation `variants/logo-final.html` is a second public artifact (https://claude.ai/artifact/KZA25A4XkMoxByDykdeVUP). Ask before republishing; its photos sit in `variants/img/` and are published with it.
 - Logo files live in `src/lib/assets/logo/`; follow the lockup rules in `BRAND.md`.

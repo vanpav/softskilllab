@@ -11,10 +11,10 @@
 			<img src={logoLine} alt="Soft Skills Lab" width="744" height="210" />
 		</a>
 		<nav class="nav" aria-label="Разделы">
-			<a href="#group">Группа</a>
-			<a href="#protocols">Опыты</a>
-			<a href="#anya">Аня</a>
-			<a href="#join">Запись</a>
+			<a href="/#group">Группа</a>
+			<a href="/#protocols">Опыты</a>
+			<a href="/#anya">Аня</a>
+			<a href="/#join">Запись</a>
 		</nav>
 		<Button
 			variant="pen"

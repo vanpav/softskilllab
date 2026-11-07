@@ -27,6 +27,7 @@ Not a science club and not a psychologist's office: a group where kids learn to 
 - Teacher: Аня — certified educational psychologist, Adler Institute (Israel) graduate, business coach with corporate soft-skills experience.
 - Contacts: WhatsApp / phone +972 53-378-9931, annasmorodinskaa@gmail.com.
 - Photos of kids doing experiments in groups (site uploads).
+- Аня's portrait: her own photo, supplied on 2026-11-07, shown as a cut-out in `src/lib/assets/anya.webp`.
 
 ## Product Principles
 - Show the group, not the lone child.
@@ -41,5 +42,4 @@ To confirm with Аня before launch:
 - Enrolment wording: the current site says «Старт в сентябре» and «осталось несколько мест»; the next start date and real availability are unconfirmed. The page shows the current month in Akko on the entry pass and the roster, not a start date.
 - Experiment details written for the design variants (red-cabbage indicator, paper tower, starch mixture, Fleming's penicillin story, the sample group list) are illustrative. The site confirms only the general themes: non-Newtonian fluid, chemical indicators, engineering challenges, Rube Goldberg chain reactions, accidental discoveries, and goal maps.
 - Mascot colour: whether the copy or the artwork is correct.
-- Аня's portrait: none is on hand, and the page shows a marked empty slot until one is supplied.
 - Photos: whether the site's images show real sessions. They look generated, so the page doesn't call them photos from lessons.

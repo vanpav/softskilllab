@@ -1,0 +1,240 @@
+/* The journal page a post is printed on. Global, so the public page (PostArticle) and Аня's visual editor share it
+   and the editor shows exactly what the site will. Every selector starts at .post-sheet. */
+.post-sheet {
+	position: relative;
+	margin-top: clamp(28px, 4vw, 44px);
+	display: grid;
+	grid-template-columns: clamp(150px, 16vw, 210px) minmax(0, 1fr);
+	gap: clamp(24px, 4vw, 64px);
+	background: var(--sheet);
+	padding: clamp(40px, 6vw, 80px) clamp(24px, 6vw, 88px) clamp(40px, 6vw, 72px) clamp(52px, 7vw, 104px);
+	box-shadow: 0 18px 34px rgba(20, 30, 80, 0.12);
+	transform: rotate(-0.3deg);
+}
+.post-sheet > .tape {
+	top: -16px;
+	left: 42%;
+	transform: rotate(-3deg);
+}
+/* Punched holes on the binding edge: this is a page taken out of the journal. */
+.post-sheet .ps-holes {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: clamp(14px, 2vw, 26px);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding: 80px 0;
+}
+.post-sheet .ps-holes span {
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--paper);
+	box-shadow: inset 0 2px 3px rgba(20, 30, 80, 0.22);
+}
+.post-sheet .ps-margin {
+	position: sticky;
+	top: 24px;
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 14px;
+}
+.post-sheet .ps-no {
+	font-size: clamp(56px, 6vw, 84px);
+	line-height: 0.9;
+	transform: rotate(-4deg);
+}
+.post-sheet .ps-doodle {
+	width: clamp(96px, 10vw, 140px);
+	height: auto;
+	color: var(--ink);
+}
+.post-sheet .ps-time {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--ink-2);
+	border-top: 2px solid var(--ink);
+	padding-top: 6px;
+}
+.post-sheet .ps-text {
+	max-width: 62ch;
+}
+.post-sheet .ps-title {
+	font-size: clamp(36px, 4.6vw, 64px);
+	font-weight: 900;
+	letter-spacing: -0.025em;
+	line-height: 1.02;
+	text-wrap: balance;
+}
+.post-sheet .ps-epigraph {
+	margin-top: 18px;
+	display: flex;
+	align-items: flex-start;
+	gap: 14px;
+}
+.post-sheet .ps-epigraph svg {
+	flex: none;
+	width: clamp(56px, 5vw, 76px);
+	height: auto;
+	margin-top: 4px;
+	color: var(--pink-text);
+}
+.post-sheet .ps-quote {
+	font-size: clamp(32px, 3.4vw, 46px);
+	line-height: 1.05;
+	transform: rotate(-1.5deg);
+	transform-origin: left;
+	text-wrap: balance;
+}
+.post-sheet .ps-p {
+	margin-top: 18px;
+	font-size: 18px;
+	line-height: 1.65;
+	color: var(--ink-2);
+}
+.post-sheet .ps-lead {
+	margin-top: clamp(28px, 3.5vw, 40px);
+	font-size: clamp(19px, 1.7vw, 22px);
+	line-height: 1.55;
+	color: var(--ink);
+}
+.post-sheet .ps-h {
+	margin-top: clamp(32px, 4vw, 44px);
+	font-size: clamp(22px, 2vw, 26px);
+	font-weight: 800;
+	letter-spacing: -0.01em;
+	line-height: 1.15;
+	text-decoration: underline wavy var(--pink-text);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 8px;
+}
+.post-sheet .ps-note {
+	--note: var(--sticky);
+	--note-ink: var(--sticky-ink);
+	margin: clamp(28px, 3.5vw, 40px) 0 clamp(28px, 3.5vw, 40px) clamp(0px, 2vw, 24px);
+	padding: clamp(22px, 3vw, 32px);
+	background: linear-gradient(to top right, color-mix(in srgb, var(--note), white 42%), var(--note));
+	color: var(--note-ink);
+	filter: drop-shadow(0 6px 8px rgba(20, 30, 80, 0.16));
+	transform: rotate(-1.2deg);
+}
+.post-sheet .ps-note.note-pink {
+	--note: var(--sticky-pink);
+	--note-ink: var(--sticky-pink-ink);
+	transform: rotate(1deg);
+}
+.post-sheet .ps-note.note-green {
+	--note: var(--sticky-green);
+	--note-ink: var(--sticky-green-ink);
+}
+.post-sheet .ps-note-title {
+	color: inherit;
+	font-size: clamp(30px, 3vw, 38px);
+	margin-bottom: 4px;
+}
+.post-sheet .ps-note-p {
+	margin-top: 10px;
+	font-size: 18px;
+	line-height: 1.55;
+}
+/* Photos are prints laid on the page: white border, deeper bottom edge, a handwritten caption, tilted a little.
+   One photo keeps its shape; a gallery crops to squares, two to a row. */
+.post-sheet .ps-photos {
+	margin: clamp(28px, 4vw, 44px) 0 clamp(8px, 2vw, 16px);
+}
+.post-sheet .ps-gallery {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: clamp(16px, 2.4vw, 28px);
+}
+.post-sheet .ps-print {
+	position: relative;
+	margin: 0;
+	padding: 12px 12px 14px;
+	background: var(--sheet);
+	box-shadow: 0 12px 24px rgba(20, 30, 80, 0.14);
+	transform: rotate(var(--tilt, -1deg));
+}
+.post-sheet .ps-photos:not(.ps-gallery) .ps-print::before {
+	content: '';
+	position: absolute;
+	top: -14px;
+	left: 50%;
+	width: 120px;
+	height: 34px;
+	margin-left: -60px;
+	background: var(--tape);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+	transform: rotate(-3deg);
+}
+.post-sheet .ps-print img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.post-sheet .ps-gallery .ps-print img {
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+}
+.post-sheet .ps-print figcaption {
+	margin-top: 8px;
+	font-size: clamp(22px, 2vw, 26px);
+	line-height: 1.1;
+	text-align: center;
+}
+.post-sheet .ps-sign {
+	margin-top: clamp(36px, 5vw, 56px);
+	display: flex;
+	align-items: flex-end;
+	gap: 16px;
+	border-top: 2px solid var(--ink);
+	padding-top: 10px;
+	max-width: 320px;
+}
+.post-sheet .ps-sign .hand {
+	font-size: 52px;
+	transform: rotate(-4deg) translateY(-6px);
+}
+.post-sheet .ps-sign small {
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--ink-2);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	margin-bottom: 6px;
+}
+@media (max-width: 900px) {
+	.post-sheet {
+		grid-template-columns: minmax(0, 1fr);
+		padding-left: clamp(44px, 10vw, 64px);
+	}
+	.post-sheet .ps-margin {
+		position: static;
+		flex-direction: row;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	.post-sheet .ps-doodle {
+		width: 72px;
+		order: 3;
+		margin-left: auto;
+	}
+}
+@media (max-width: 600px) {
+	.post-sheet .ps-holes {
+		left: 12px;
+	}
+	.post-sheet .ps-holes span {
+		width: 12px;
+		height: 12px;
+	}
+	.post-sheet {
+		padding-right: 20px;
+	}
+}

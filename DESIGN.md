@@ -371,7 +371,10 @@ The one dark block: a Black Ink slab with white headline, Permit Lavender body, 
 ### Mascot
 Пушистик appears only as a round sticker: circle crop, 6px white border, tilted -8deg, with Sticker lift, overlapping the corner of a print or sheet. On a photo it may carry a speech bubble in Caveat, outlined 2px in Black Ink.
 
-On the taped portrait sheet, the sticker currently sits on a dashed slot marking a missing photo. That slot is a temporary placeholder, not a component.
+On the taped portrait sheet, the sticker overlaps the bottom right corner of Аня's portrait.
+
+### Portrait
+Аня's photo is a cut-out, her real outline with the background removed, laid on a lime marker patch the way the logo's flasks sit on theirs: three wide Highlighter Lime strokes (30 units in a 100-unit box, round caps) drawn behind her. The square shows her head and shoulders, with the sweater running off the bottom edge. It sits on the taped portrait sheet, under the Пушистик sticker. Only a real alpha matte is allowed here, never a circle or polygon mask.
 
 **The Framed Пушистик Rule.** The artwork keeps its original grey background, because a clean cutout was not achievable. Show it only inside a frame, as a round sticker with a white border.
 
@@ -380,6 +383,18 @@ A wrapping row of label and handwritten value pairs (24px blue Caveat), such as 
 
 ### Handwritten Answer
 Handwriting that writes itself on load: a clip reveal from the left (1.6s `cubic-bezier(.6,.05,.3,1)`, after 0.5s) following an arrow that draws first (0.7s ease-out, after 0.25s). With reduced motion, both appear complete.
+
+### Notebook Problem
+The «Что такое софт скиллы?» section, before the roster: a school physics problem written in blue ballpoint straight onto the grid, with no sheet under it. «Дано:» and «Найти:» sit in the left half, under and over a 2px Ballpoint Blue ruler line; a second ruler line divides them from «Решение:» and «Ответ:» on the right, the way every Russian exercise book lays it out. Labels are Caveat 700, values Caveat 500 at 26–32px, broken into short lines as if written by hand; the answer is Caveat 700 at 1.15em with its one lime-highlighted phrase. A ballpoint volcano sketch sits under «Найти:». The whole problem tilts -0.6deg. The section adds clamp(24px,4vw,56px) above and below to the neighbouring sections' own padding. It stands left of the printed explanation on desktop and below it from 900px; at 600px and below the halves stack, each closed by a ruler line, at 23px, with the volcano beside «Найти:».
+
+### Lab Journal
+Аня's posts after lessons. A section under the entry pass, «Журнал занятий», shows the three newest as cards; `/zhurnal` lists all of them, and each post has its own page at `/zhurnal/<file name>`. Posts are plain text in `src/posts/`, so the look has to come from the text itself:
+- **Post card:** a taped sheet tilted about 1deg, with the post number in blue Caveat, the post's doodle in Black Ink line, the opening quote in Caveat, the printed title, its first lines in Faded Ink, and a foot of reading time over «читать запись» with a drawn arrow. It lifts 4px on hover.
+- **Post page:** a single page taken out of the journal, with tape and punched holes on the binding edge. A margin column sticks while reading: the large handwritten number, the doodle, reading time. The text column holds the printed title, the opening quote as a handwritten line behind a pink drawn arrow (as in the hero), a larger lead paragraph in Black Ink, then body text at 18px in Faded Ink, held to 62ch.
+- **Read from the text:** a paragraph that is only a «quote» becomes the handwritten line; a short line ending in «?» or «:» becomes a subheading with a wavy pink underline; a «…вывод…:» heading opens a sticky note in the post's colour (yellow, pink, green by number, unless Аня picked one in the editor) that holds the rest, and a paragraph starting «Главный вывод» becomes a sticky note titled «Главное». Emoji are removed. The doodle is picked by keywords (губка, границы, башня, карта, опыт) or set in front matter.
+- **Photos:** prints laid on the page, with a 12px white border, Snapshot lift and an optional handwritten caption, tilted between -1.6 and 1.8deg. One photo keeps its shape under a strip of tape; two or more crop to squares, two to a row.
+- **After the post:** a handwritten line with the pen button to WhatsApp, and the next post's card.
+- **Editor (/adm):** the same paper world for Аня, in Operate mode: a taped login sheet, a ruled list of posts with handwritten numbers, and a visual editor that is the post page itself. Title, quote, paragraphs and stickers are typed in place (placeholders in faded ink, a light dashed focus line). A focused block shows a Black Ink panel above it (under it on phones): paragraph, subheading or sticker, the three sticker colours for a sticker, up, down, delete; a dotted grip on its left drags it, with a Ballpoint Blue line marking where it will land. A dashed «добавить» row adds blocks, photos included (one or several at once, shrunk to 1800px in the browser before upload; «ещё фото» on a photo block adds to it), the doodle in the margin opens a picker, a whole post pasted in is laid out by the text rules, and a sticky bar at the bottom holds the pen button.
 
 ### Credential List
 A list without bullets: a 30px hand-drawn check in Check Green, a bold line, and a Faded Ink line beneath. It closes on a signature line, with «Подпись» and a large handwritten name (52px, -4deg) over a 2px Black Ink rule.
@@ -399,7 +414,7 @@ A list without bullets: a 30px hand-drawn check in Check Green, a bold line, and
 - **Don't** cut Пушистик out of its grey background or place the artwork unframed on the grid.
 - **Don't** add a second pink outside the sticky notes, or use lime for text on paper.
 - **Don't** add a second dark block to a page.
-- **Don't** reuse the dashed portrait slot as a pattern; replace it with the real photo.
+- **Don't** cut a photo out with a geometric mask; a cut-out needs the subject's real outline.
 - **Don't** round the corners of paper.
 - **Don't** set paragraphs in Caveat.
 - **Don't** put more than one lime highlight in a heading or conclusion.
