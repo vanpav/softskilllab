@@ -10,11 +10,14 @@
 	let {
 		source,
 		number,
+		photos: canUpload = true,
 		error,
 		submitLabel
 	}: {
 		source: { title: string; text: string; doodle?: string; content?: PostContent };
 		number: number;
+		/** False while the PHOTOS bucket isn't bound; photo buttons are hidden then. */
+		photos?: boolean;
 		error?: string;
 		submitLabel: string;
 	} = $props();
@@ -376,7 +379,7 @@
 					</button>
 					<div class="tools" role="toolbar" aria-label="Блок {i + 1}">
 						{#if block.type === 'photos'}
-							<button type="button" onpointerdown={(e) => e.preventDefault()} onclick={() => pickPhotos(block)}>ещё фото</button>
+							{#if canUpload}<button type="button" onpointerdown={(e) => e.preventDefault()} onclick={() => pickPhotos(block)}>ещё фото</button>{/if}
 						{:else}
 						{#each KINDS as [kind, label] (kind)}
 							<button type="button" class:on={block.type === kind} aria-pressed={block.type === kind} onpointerdown={(e) => e.preventDefault()} onclick={() => setKind(block, kind)}>{label}</button>
@@ -439,7 +442,7 @@
 				<button type="button" class="hand" onclick={() => add('p')}>абзац</button>
 				<button type="button" class="hand" onclick={() => add('h')}>подзаголовок</button>
 				<button type="button" class="hand" onclick={() => add('note')}>стикер с выводом</button>
-				<button type="button" class="hand" onclick={() => pickPhotos(null)}>фото</button>
+				{#if canUpload}<button type="button" class="hand" onclick={() => pickPhotos(null)}>фото</button>{/if}
 				<input bind:this={fileInput} class="file" type="file" accept="image/*" multiple onchange={onFiles} tabindex="-1" aria-hidden="true" />
 			</div>
 

@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { requireAdmin } from '#lib/server/admin-auth.js';
+import { bindings } from '#lib/server/bindings.js';
 import { getSource, loadSources, requireKv } from '#lib/server/post-store.js';
 import { savePost } from '../../editor.server.js';
 import type { Actions, PageServerLoad } from './$types';
@@ -9,7 +10,7 @@ export const load = (async (event) => {
 	const source = await getSource((await requireKv()), event.params.slug);
 	if (!source) error(404, 'Такой записи нет');
 	const number = (await loadSources()).findIndex((s) => s.slug === source.slug) + 1;
-	return { source, number };
+	return { source, number, photos: !!(await bindings()).PHOTOS };
 }) satisfies PageServerLoad;
 
 export const actions = {

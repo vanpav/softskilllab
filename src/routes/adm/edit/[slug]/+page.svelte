@@ -6,7 +6,7 @@
 
 <div class="wrap">
 	<h1>Запись №{data.number}</h1>
-	<VisualEditor source={form?.source ?? data.source} number={data.number} error={form?.error} submitLabel="Сохранить" />
+	<VisualEditor source={form?.source ?? data.source} number={data.number} photos={data.photos} error={form?.error} submitLabel="Сохранить" />
 </div>
 
 <style>

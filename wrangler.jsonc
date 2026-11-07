@@ -7,10 +7,11 @@
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
 	},
-	// No id: `wrangler deploy` creates the namespace on first deploy and keeps it bound to this Worker.
-	"kv_namespaces": [{ "binding": "POSTS" }],
-	// Photos in journal posts; created on first deploy the same way.
-	"r2_buckets": [{ "binding": "PHOTOS" }],
+	// Workers Builds can't create resources on deploy, so they are named here. Local dev keeps its own copies.
+	"kv_namespaces": [{ "binding": "POSTS", "id": "43218b37d8a941c4bc9f48a200b8335d" }],
+	// Photos in journal posts. Off until R2 is enabled on the account and the bucket exists:
+	// wrangler r2 bucket create softskilllabs-photos, then uncomment. The editor hides photo buttons without it.
+	// "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "softskilllabs-photos" }],
 	"observability": {
 		"enabled": true
 	}
