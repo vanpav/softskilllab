@@ -4,6 +4,8 @@ import slime from '#lib/assets/slime-experiment.webp';
 import blocks from '#lib/assets/team-building-blocks.webp';
 import map from '#lib/assets/treasure-map-compass.webp';
 
+import { nbspDeep } from './typography.js';
+
 /** The live address: canonicals, the sitemap and structured data point here even when served from workers.dev. */
 export const SITE_URL = 'https://softskilllabs.com';
 export const SITE_NAME = 'Soft Skills Lab';
@@ -24,17 +26,17 @@ export const WHATSAPP_HREF = `https://wa.me/972533789931?text=${encodeURICompone
 export type RosterEntry = { name: string; power?: string };
 
 // Sample entries, labelled as an example on the page.
-export const roster: RosterEntry[] = [
+export const roster: RosterEntry[] = nbspDeep([
 	{ name: 'Тихоня', power: 'замечает всё' },
 	{ name: 'Заводила', power: 'придумывает' },
 	{ name: 'Спорщик', power: 'проверяет факты' },
 	{ name: 'Почемучка', power: 'задаёт вопросы' },
 	{ name: 'твой ребёнок?' },
 	{ name: '…' }
-];
+]);
 
-export const doodleNames = ['flask', 'splash', 'tower', 'compass', 'chain', 'dish', 'sponge', 'boundary'] as const;
-export type DoodleName = (typeof doodleNames)[number];
+import type { DoodleName } from './doodles.js';
+export type { DoodleName };
 
 export type Protocol = {
 	title: string;
@@ -47,7 +49,7 @@ export type Protocol = {
 	question: string;
 };
 
-export const protocols: Protocol[] = [
+export const protocols: Protocol[] = nbspDeep([
 	{
 		title: 'Эмоции и саморегуляция',
 		doodle: 'splash',
@@ -106,9 +108,9 @@ export const protocols: Protocol[] = [
 		takeaway: 'спокойное отношение к промахам и привычку пробовать ещё раз.',
 		question: 'а если не получилось?'
 	}
-];
+]);
 
-export const credentials = [
+export const credentials = nbspDeep([
 	{
 		title: 'Дипломированный педагог-психолог',
 		text: 'Возрастная психология и авторские программы для самых активных детей.'
@@ -121,12 +123,12 @@ export const credentials = [
 		title: 'Бизнес-коуч',
 		text: 'Много лет учила soft skills взрослых в крупных компаниях. Теперь учит детей.'
 	}
-];
+]);
 
 export type Photo = { src: string; alt: string; heroCaption: string; caption: string };
 
 // One goes to the hero at random, the rest to the photo strip, so none repeats on a page.
-export const photos: Photo[] = [
+export const photos: Photo[] = nbspDeep([
 	{
 		src: flask,
 		alt: 'Мальчик и девочка вместе держат колбу с голубой жидкостью',
@@ -157,4 +159,4 @@ export const photos: Photo[] = [
 		heroCaption: 'Карта целей. Сначала решите, куда идём.',
 		caption: 'куда идём?'
 	}
-];
+]);

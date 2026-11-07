@@ -35,7 +35,7 @@
 				<img src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" width="752" height="752" />
 				{#if newYear}<SantaDoodle />{/if}
 			</span>
-			<span class="sticker-say" aria-hidden="true">{newYear ? 'Хо-хо-хо!' : 'я тоже тут!'}</span>
+			<span class="sticker-say" aria-hidden="true">{newYear ? 'Хо-хо-хо!' : 'я\u00A0тоже тут!'}</span>
 			<figcaption>{photo.heroCaption}</figcaption>
 		</figure>
 	</div>

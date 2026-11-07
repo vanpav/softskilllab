@@ -1,6 +1,6 @@
+import { LOOKS } from '#lib/anya-looks.js';
 import { photos } from '#lib/content.js';
-import { buildPosts } from '#lib/posts.js';
-import { loadSources } from '#lib/server/post-store.js';
+import { loadPosts } from '#lib/server/post-store.js';
 import { monthInAkko, newYearGreeting } from '#lib/season.js';
 import type { PageServerLoad } from './$types';
 
@@ -11,8 +11,11 @@ export const load = (async ({ url }) => {
 	const now = preview ? new Date(preview) : new Date();
 	return {
 		heroPhoto: Math.floor(Math.random() * photos.length),
+		// What gets drawn on Аня's portrait; `?anya=3` picks a set in `pnpm dev`.
+		anyaLook: (import.meta.env.DEV && url.searchParams.has('anya') ? Number(url.searchParams.get('anya')) : Math.floor(Math.random() * LOOKS.length)) % LOOKS.length,
 		month: monthInAkko(now),
 		greeting: newYearGreeting(now),
-		posts: buildPosts(await loadSources()).reverse()
+		// One more than the three cards, so the section knows whether to offer «все записи».
+		posts: (await loadPosts(4)).reverse()
 	};
 }) satisfies PageServerLoad;

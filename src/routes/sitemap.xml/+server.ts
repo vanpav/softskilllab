@@ -1,11 +1,11 @@
 import { SITE_URL } from '#lib/content.js';
-import { buildPosts } from '#lib/posts.js';
-import { loadSources } from '#lib/server/post-store.js';
+import { listEntries } from '#lib/server/post-store.js';
 import type { RequestHandler } from './$types';
 
 /** Built per request from the post store, so a post Аня publishes is listed at once. */
 export const GET: RequestHandler = async () => {
-	const posts = buildPosts(await loadSources());
+	// The listing alone: no post's text is read for the sitemap.
+	const posts = await listEntries();
 	const pages = [
 		{ path: '/', lastmod: null },
 		{ path: '/zhurnal', lastmod: posts.map((p) => p.date).filter(Boolean).sort().at(-1) ?? null },

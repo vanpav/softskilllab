@@ -27,6 +27,18 @@ function sameText(a: string, b: string) {
 
 export const passwordOf = async () => (await bindings()).ADMIN_PASSWORD || null;
 
+/** The cookie value for a session that ends at `expires` (ms). */
+export async function sessionValue(password: string, expires: number) {
+	return `${expires}.${await sign(password, String(expires))}`;
+}
+
+/** Whether a cookie value was made with this password and has not expired. */
+export async function validSession(password: string | null, value: string | undefined, now = Date.now()) {
+	const [expires, signature] = value?.split('.') ?? [];
+	if (!password || !expires || !signature || !(Number(expires) > now)) return false;
+	return sameText(signature, await sign(password, expires));
+}
+
 export async function checkPassword(attempt: string) {
 	const password = await passwordOf();
 	return !!password && sameText(attempt, password);
@@ -35,7 +47,7 @@ export async function checkPassword(attempt: string) {
 export async function startSession(cookies: Cookies) {
 	const password = (await passwordOf())!;
 	const expires = Date.now() + DAYS * 24 * 60 * 60 * 1000;
-	cookies.set(COOKIE, `${expires}.${await sign(password, String(expires))}`, {
+	cookies.set(COOKIE, await sessionValue(password, expires), {
 		path: '/adm',
 		httpOnly: true,
 		secure: true,
@@ -49,10 +61,7 @@ export function endSession(cookies: Cookies) {
 }
 
 export async function isSignedIn(cookies: Cookies) {
-	const password = await passwordOf();
-	const [expires, signature] = cookies.get(COOKIE)?.split('.') ?? [];
-	if (!password || !expires || !signature || Number(expires) < Date.now()) return false;
-	return sameText(signature, await sign(password, expires));
+	return validSession(await passwordOf(), cookies.get(COOKIE));
 }
 
 /** For every /adm load and action: actions don't run the layout load, so each checks for itself. */

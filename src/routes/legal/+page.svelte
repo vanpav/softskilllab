@@ -3,9 +3,10 @@
 	import SiteFooter from '#lib/components/journal/SiteFooter.svelte';
 	import SiteHeader from '#lib/components/journal/SiteHeader.svelte';
 	import { EMAIL, PHONE_DISPLAY } from '#lib/content.js';
+	import { nbspDeep } from '#lib/typography.js';
 
 	// Carried over word for word from the previous site's /legal, which search engines already know.
-	const sections = [
+	const sections = nbspDeep([
 		{
 			id: 'privacy',
 			title: 'Политика конфиденциальности',
@@ -40,7 +41,7 @@
 				'Если вы столкнулись с каким-либо барьером доступности на нашем сайте или у вас возникли трудности с получением информации, просим сообщить нам об этом. Мы постараемся устранить проблему или предоставить информацию в доступном для вас формате в кратчайшие разумные сроки. Для связи по вопросам доступности обращайтесь по телефону: 0533789931.'
 			]
 		}
-	];
+	]);
 </script>
 
 <Seo

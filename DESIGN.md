@@ -277,6 +277,8 @@ A cool paper-and-ink palette: stationery neutrals, one ballpoint blue, and one l
 
 ### Named Rules
 
+**The No Hanging Words Rule.** No line ends with a one- or two-letter preposition, conjunction or particle, a number never parts from the word after it, and a line never starts with a dash. Non-breaking spaces do this automatically (`src/lib/typography.ts`).
+
 **The Two Voices Rule.** Print states; handwriting responds. Headings, explanations, and form labels are Onest. Answers, conclusions, captions, and filled-in values are Caveat, and never run past a sentence or two.
 
 **The Form Field Rule.** A small tracked label names a field whose value sits directly beside or beneath it, as on a printed form. It never introduces a heading.
@@ -374,7 +376,7 @@ The one dark block: a Black Ink slab with white headline, Permit Lavender body, 
 On the taped portrait sheet, the sticker overlaps the bottom right corner of Аня's portrait.
 
 ### Portrait
-Аня's photo is a cut-out, her real outline with the background removed, laid on a lime marker patch the way the logo's flasks sit on theirs: three wide Highlighter Lime strokes (30 units in a 100-unit box, round caps) drawn behind her. The square shows her head and shoulders, with the sweater running off the bottom edge. It sits on the taped portrait sheet, under the Пушистик sticker. Only a real alpha matte is allowed here, never a circle or polygon mask.
+Аня's photo is a cut-out, her real outline with the background removed, laid on a lime marker patch the way the logo's flasks sit on theirs: three wide Highlighter Lime strokes (30 units in a 100-unit box, round caps) drawn behind her. The square shows her head and shoulders, with the sweater running off the bottom edge. It sits on the taped portrait sheet, under the Пушистик sticker. Only a real alpha matte is allowed here, never a circle or polygon mask. Over the photo, a ballpoint doodle is drawn stroke by stroke when the portrait scrolls into view: one of nine sets picked on the server for each page load (top hat and moustache, curved devil horns and pitchfork, pince-nez and goatee, kokoshnik and pink rouge, crown and sceptre, pirate captain's hat with skull and bones and an eye patch, halo and wings, mortarboard and round glasses, bunny ears with front teeth, a pink nose and whiskers), and a Snow Maiden set in the New Year season. Sets live in `src/lib/anya-looks.ts`, in a frame that turns with her head; `?anya=N` shows set N in `pnpm dev`.
 
 **The Framed Пушистик Rule.** The artwork keeps its original grey background, because a clean cutout was not achievable. Show it only inside a frame, as a round sticker with a white border.
 

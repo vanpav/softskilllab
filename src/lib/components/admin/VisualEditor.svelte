@@ -4,7 +4,7 @@
 	import Doodle from '#lib/components/journal/Doodle.svelte';
 	import '#lib/components/journal/post-sheet.css';
 	import { Button } from '#lib/components/ui/button/index.js';
-	import { doodleNames, type DoodleName } from '#lib/content.js';
+	import { doodleNames, type DoodleName } from '#lib/doodles.js';
 	import { noteColors, parsePost, todayInAkko, toContent, type ContentBlock, type NoteColor, type Photo, type PostContent } from '#lib/posts.js';
 
 	let {

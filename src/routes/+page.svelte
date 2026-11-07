@@ -48,7 +48,7 @@
 	<Roster month={data.month} />
 	<Protocols />
 	<PhotoStrip photos={photos.filter((_, i) => i !== data.heroPhoto)} />
-	<Teacher newYear={!!greeting} />
+	<Teacher newYear={!!greeting} look={data.anyaLook} />
 	<EntryPass month={data.month} />
 	<LabJournal posts={data.posts} />
 </main>

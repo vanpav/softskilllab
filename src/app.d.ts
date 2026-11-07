@@ -6,7 +6,8 @@ declare global {
 		interface KV {
 			get(key: string): Promise<string | null>;
 			get(key: string, type: 'json'): Promise<unknown>;
-			put(key: string, value: string): Promise<void>;
+			put(key: string, value: string, options?: { metadata?: unknown }): Promise<void>;
+			list(options: { prefix: string; cursor?: string }): Promise<{ keys: { name: string; metadata?: unknown }[]; list_complete: boolean; cursor?: string }>;
 			delete(key: string): Promise<void>;
 		}
 		/** The part of Cloudflare's R2Bucket the site uses. */

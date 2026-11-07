@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { DoodleName } from '#lib/content.js';
+	import type { DoodleName } from '#lib/doodles.js';
 
 	let { name, class: className }: { name: DoodleName; class?: string } = $props();
 </script>

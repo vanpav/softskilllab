@@ -1,8 +1,8 @@
 import { fail, redirect, type RequestEvent } from '@sveltejs/kit';
-import { doodleNames } from '#lib/content.js';
+import { doodleNames } from '#lib/doodles.js';
 import { contentToText, noteColors, slugify, type ContentBlock, type NoteColor, type Photo, type PostContent, type PostSource } from '#lib/posts.js';
 import { requireAdmin } from '#lib/server/admin-auth.js';
-import { getSource, requireKv, saveSource, slugTaken } from '#lib/server/post-store.js';
+import { deletePhotos, getSource, photoKeys, requireKv, saveSource } from '#lib/server/post-store.js';
 
 const str = (value: unknown, max: number) => (typeof value === 'string' ? value.slice(0, max) : null);
 
@@ -58,12 +58,13 @@ export async function savePost(event: RequestEvent, existingSlug: string | null)
 	if (!text.trim() && !content.blocks.some((b) => b.type === 'photos')) return fail(400, { ...values, error: 'Запись пустая.' });
 
 	let slug = existingSlug;
+	const previous = slug ? await getSource(kv, slug) : null;
 	if (slug) {
-		if (!(await getSource(kv, slug))) return fail(404, { ...values, error: 'Эта запись уже удалена.' });
+		if (!previous) return fail(404, { ...values, error: 'Эта запись уже удалена.' });
 	} else {
 		const base = slugify(title);
 		slug = base;
-		for (let n = 2; await slugTaken(kv, slug); n++) slug = `${base}-${n}`;
+		for (let n = 2; await getSource(kv, slug); n++) slug = `${base}-${n}`;
 	}
 
 	const source: PostSource = {
@@ -72,8 +73,13 @@ export async function savePost(event: RequestEvent, existingSlug: string | null)
 		text,
 		content,
 		doodle: (doodleNames as readonly string[]).includes(doodle) ? (doodle as PostSource['doodle']) : '',
-		createdAt: date
+		createdAt: date,
+		// An edit keeps its place in the journal; a new post goes last.
+		seq: previous?.seq
 	};
 	await saveSource(kv, source);
+	// Photos taken out of the post in this edit are no longer used anywhere.
+	const kept = new Set(photoKeys(source));
+	await deletePhotos(photoKeys(previous).filter((photoKey) => !kept.has(photoKey)));
 	redirect(303, `/adm?saved=${encodeURIComponent(slug)}`);
 }

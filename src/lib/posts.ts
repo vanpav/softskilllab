@@ -1,4 +1,5 @@
-import { doodleNames, type DoodleName } from './content.js';
+import { doodleNames, type DoodleName } from './doodles.js';
+import { nbsp } from './typography.js';
 
 /**
  * Lab journal posts. A post is stored as Аня wrote it (title + plain text); the layout is read from the text:
@@ -18,6 +19,8 @@ export type PostSource = {
 	/** Picked from the text when empty. */
 	doodle?: DoodleName | '';
 	createdAt?: string;
+	/** Publication order: the file's place for posts from src/posts, the save time for posts from /adm. */
+	seq?: number;
 	/** Set by the visual editor: the layout exactly as Аня arranged it. Without it, the layout is read from `text`. */
 	content?: PostContent;
 };
@@ -135,6 +138,13 @@ function fromContent(content: PostContent) {
 const blockText = (block: Block) =>
 	'text' in block ? block.text : block.type === 'photos' ? '' : `${block.title} ${block.paragraphs.join(' ')}`;
 
+/** Line-break typesetting for what the page shows; the stored text and the editor keep plain spaces. */
+function typeset(block: Block): Block {
+	if (block.type === 'note') return { ...block, title: nbsp(block.title), paragraphs: block.paragraphs.map(nbsp) };
+	if (block.type === 'photos') return { ...block, photos: block.photos.map((photo) => ({ ...photo, caption: nbsp(photo.caption) })) };
+	return { ...block, text: nbsp(block.text) };
+}
+
 export function parsePost(source: PostSource, number: number): Post {
 	const { quote, blocks } = source.content ? fromContent(source.content) : readText(source.text);
 	const body = [quote ?? '', ...blocks.map(blockText)].join(' ');
@@ -145,17 +155,17 @@ export function parsePost(source: PostSource, number: number): Post {
 	return {
 		slug: source.slug,
 		number,
-		title: source.title.trim() || quote || 'Запись из лаборатории',
-		quote,
+		title: nbsp(source.title.trim() || quote || 'Запись из лаборатории'),
+		quote: quote && nbsp(quote),
 		doodle:
 			(source.doodle && doodleNames.includes(source.doodle) ? source.doodle : undefined) ??
 			DOODLES.find(([pattern]) => pattern.test(lower))?.[1] ??
 			FALLBACK[(number - 1) % FALLBACK.length],
 		minutes: Math.max(1, Math.round(body.split(/\s+/).length / 170)),
-		description: leadText.length > 160 ? `${leadText.slice(0, 157).replace(/\s+\S*$/, '')}…` : leadText,
+		description: nbsp(leadText.length > 160 ? `${leadText.slice(0, 157).replace(/\s+\S*$/, '')}…` : leadText),
 		date: source.createdAt ?? null,
 		cover: blocks.flatMap((b) => (b.type === 'photos' ? b.photos : [])).map((photo) => `/foto/${photo.key}`)[0] ?? null,
-		blocks
+		blocks: blocks.map(typeset)
 	};
 }
 
@@ -190,8 +200,8 @@ export const todayInAkko = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'A
 export const formatDate = (iso: string) =>
 	new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jerusalem' }).format(new Date(iso)).replace(/\s*г\.$/, '');
 
-/** Sources in publication order, oldest first; numbers follow that order. */
-export const buildPosts = (sources: PostSource[]) => sources.map((source, i) => parsePost(source, i + 1));
+/** Sources in publication order, oldest first; numbers follow that order, starting at `first`. */
+export const buildPosts = (sources: PostSource[], first = 1) => sources.map((source, i) => parsePost(source, first + i));
 
 const RU: Record<string, string> = {
 	а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'y', к: 'k', л: 'l', м: 'm',

@@ -89,8 +89,12 @@
 		}
 		const clear = (spot: { x: number; y: number }) =>
 			games.every((game) => Math.abs(game.x - spot.x) >= SIZE + 8 || Math.abs(game.y - spot.y) >= HEIGHT + 8);
-		const free = spots.filter((spot) => clear(spot) && isFree(spot.x, spot.y - scrollY));
-		return free[Math.floor(Math.random() * free.length)] ?? null;
+		// Shuffled, then tried one by one: checking every spot with elementFromPoint took over 200ms after a scroll.
+		for (let i = spots.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[spots[i], spots[j]] = [spots[j], spots[i]];
+		}
+		return spots.find((spot) => clear(spot) && isFree(spot.x, spot.y - scrollY)) ?? null;
 	}
 
 	function addBoard() {

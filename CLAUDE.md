@@ -17,22 +17,24 @@ SvelteKit 3 on Vite 8, Svelte 5 runes, TypeScript, SSR on Cloudflare Workers thr
 | `pnpm start` | run the production build locally in Wrangler (`pnpm build` first; `--port` sets the port) |
 | `pnpm run deploy` | build and deploy by hand; normally a push to `main` deploys through Workers Builds |
 | `pnpm check` | types and Svelte diagnostics |
+| `pnpm test` | unit tests in `src/lib/*.test.ts` on Node's own runner, no framework |
 | `pnpm exec shadcn-svelte add <name>` | add a UI component |
 | `<impeccable plugin>/scripts/impeccable detect --json <file>` | design and contrast checks |
 
-No test suite or linter exists. After changes run `pnpm check`, then check in a browser at 1440 and 390 wide.
+No linter exists. After changes run `pnpm check` and `pnpm test`, then check in a browser at 1440 and 390 wide. Modules under test must not import images (`posts.ts` takes doodle names from `doodles.ts`, not `content.ts`).
 
 ## Structure
 
 - `src/routes/+page.svelte` — the landing page, with head and meta
-- `src/routes/+page.server.ts` — per-request values: random hero photo, current month, New Year season
+- `src/routes/+page.server.ts` — per-request values: random hero photo, random doodle set on Аня's portrait (`?anya=N` in dev), current month, New Year season
 - `src/lib/season.ts` — date rules in Akko time (`?date=2027-01-01T12:00:00Z` previews a day in `pnpm dev`; `localStorage.show_ny = true` shows the New Year season on any date)
 - `src/lib/posts.ts` — a post's layout: stored blocks from the visual editor (`content`), or read from plain text by the rules in its header comment
-- `src/lib/server/post-store.ts` — posts in the `POSTS` KV namespace; `src/posts/*.md` are only the first posts, copied into KV on the first /adm visit
+- `src/lib/server/post-store.ts` — posts in the `POSTS` KV namespace, one key each with `{ seq, date }` metadata and no shared index (KV reads lag writes, so read-modify-write loses posts). `src/posts/*.md` show from the files until saved or deleted in /adm
 - `src/routes/zhurnal/` — journal list and post pages; `src/routes/adm/` — Аня's visual editor (`src/lib/components/admin/VisualEditor.svelte`) behind `ADMIN_PASSWORD` (`src/lib/server/admin-auth.ts`); the post sheet's styles are shared in `src/lib/components/journal/post-sheet.css`
 - Photos: `PHOTOS` R2 bucket, uploaded at `/adm/upload`, served at `/foto/<key>`; deleted with their post
 - Bindings come from `cloudflare:workers` through `src/lib/server/bindings.ts`, not `event.platform`; locally the password is in gitignored `.dev.vars`; restart `pnpm dev` after changing `wrangler.jsonc`
 - SEO: `Seo.svelte` writes title, description, canonical (always `SITE_URL`), Open Graph and JSON-LD from `src/lib/schema.ts`; `/sitemap.xml` is built from the post store; `static/robots.txt` closes `/adm`; `/legal` carries the previous site's legal texts word for word
+- Line breaks: `src/lib/typography.ts` glues short Russian words, numbers and dashes with non-breaking spaces. It runs on static markup text at build time (preprocessor in `vite.config.ts`), on `content.ts` arrays via `nbspDeep`, and on journal posts in `parsePost`. Text in other JS strings needs `nbsp()` by hand
 - `src/routes/layout.css` — journal tokens, shadcn role mapping, global rules
 - `src/lib/content.ts` — page copy that repeats or lists (protocols, roster, photos, contacts)
 - `src/lib/components/journal/` — page sections and their scoped CSS
