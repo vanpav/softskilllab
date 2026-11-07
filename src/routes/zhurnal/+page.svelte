@@ -1,18 +1,30 @@
 <script lang="ts">
 	import PostCard from '#lib/components/journal/PostCard.svelte';
+	import MarginGame from '#lib/components/journal/MarginGame.svelte';
 	import SiteFooter from '#lib/components/journal/SiteFooter.svelte';
+	import Seo from '#lib/components/journal/Seo.svelte';
 	import SiteHeader from '#lib/components/journal/SiteHeader.svelte';
+	import Snow from '#lib/components/journal/Snow.svelte';
+
+	import { photos } from '#lib/content.js';
 
 	let { data } = $props();
 
 	const TILTS = ['-1.2deg', '0.9deg', '-0.6deg', '1.2deg'];
 </script>
 
-<svelte:head>
-	<title>Журнал занятий — Soft Skills Lab</title>
-	<meta name="description" content="Аня рассказывает, что происходило на занятиях Soft Skills Lab в Акко и что дети унесли домой." />
-</svelte:head>
+<Seo
+	title="Журнал занятий — Soft Skills Lab"
+	description="Аня рассказывает, что происходило на занятиях Soft Skills Lab в Акко и что дети унесли домой."
+	path="/zhurnal"
+	image={photos[0].src}
+/>
 
+{#if data.greeting}
+	<Snow />
+{:else}
+	<MarginGame />
+{/if}
 <SiteHeader />
 <main class="all">
 	<div class="wrap">
@@ -25,7 +37,7 @@
 		</div>
 	</div>
 </main>
-<SiteFooter greeting={null} />
+<SiteFooter greeting={data.greeting} />
 
 <style>
 	.all {

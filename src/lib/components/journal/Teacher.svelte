@@ -64,7 +64,7 @@
 					</g>
 				</svg>
 				<span class="sticker" class:bearded={newYear}>
-					<img src={pushistik} alt="Пушистик — пушистый инопланетянин в очках, талисман лаборатории" />
+					<img src={pushistik} alt="Пушистик — пушистый инопланетянин в очках, талисман лаборатории" width="752" height="752" />
 					{#if newYear}<SantaDoodle />{/if}
 				</span>
 			</div>

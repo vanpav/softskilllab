@@ -8,7 +8,7 @@
 	<div class="wrap">
 		{#each photos as photo (photo.src)}
 			<figure>
-				<img src={photo.src} alt={photo.alt} loading="lazy" />
+				<img src={photo.src} alt={photo.alt} width="1000" height="1000" loading="lazy" />
 				<figcaption>{photo.caption}</figcaption>
 			</figure>
 		{/each}

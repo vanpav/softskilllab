@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Post } from '#lib/posts.js';
+	import { formatDate, type Post } from '#lib/posts.js';
 	import Doodle from './Doodle.svelte';
 	import './post-sheet.css';
 
@@ -16,7 +16,10 @@
 	<aside class="ps-margin">
 		<span class="ps-no hand">№{post.number}</span>
 		<Doodle name={post.doodle} class="ps-doodle" />
-		<span class="ps-time">{post.minutes} мин чтения</span>
+		<span class="ps-time">
+			{#if post.date}<time datetime={post.date.slice(0, 10)}>{formatDate(post.date)}</time><br />{/if}
+			{post.minutes} мин чтения
+		</span>
 	</aside>
 
 	<div class="ps-text">

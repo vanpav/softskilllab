@@ -46,20 +46,20 @@ export async function savePost(event: RequestEvent, existingSlug: string | null)
 	const form = await event.request.formData();
 	const title = String(form.get('title') ?? '').trim();
 	const doodle = String(form.get('doodle') ?? '');
+	const rawDate = String(form.get('date') ?? '');
+	// Only a real calendar day; anything else, or nothing, means the post has no date.
+	const date = /^\d{4}-\d{2}-\d{2}$/.test(rawDate) && !Number.isNaN(Date.parse(rawDate)) ? rawDate : undefined;
 	const content = readContent(String(form.get('content') ?? ''));
 	const text = content ? contentToText(content) : '';
 	// Sent back on an error, so the editor reopens with what Аня had typed.
-	const values = { source: { title, text, doodle, content: content ?? undefined } };
+	const values = { source: { title, text, doodle, content: content ?? undefined, createdAt: date } };
 	if (!content) return fail(400, { ...values, error: 'Не получилось прочитать запись. Обновите страницу и попробуйте ещё раз.' });
 	if (!title) return fail(400, { ...values, error: 'Напишите название записи.' });
-	if (!text.trim()) return fail(400, { ...values, error: 'Запись пустая.' });
+	if (!text.trim() && !content.blocks.some((b) => b.type === 'photos')) return fail(400, { ...values, error: 'Запись пустая.' });
 
 	let slug = existingSlug;
-	let createdAt = new Date().toISOString();
 	if (slug) {
-		const current = await getSource(kv, slug);
-		if (!current) return fail(404, { ...values, error: 'Эта запись уже удалена.' });
-		createdAt = current.createdAt ?? createdAt;
+		if (!(await getSource(kv, slug))) return fail(404, { ...values, error: 'Эта запись уже удалена.' });
 	} else {
 		const base = slugify(title);
 		slug = base;
@@ -72,7 +72,7 @@ export async function savePost(event: RequestEvent, existingSlug: string | null)
 		text,
 		content,
 		doodle: (doodleNames as readonly string[]).includes(doodle) ? (doodle as PostSource['doodle']) : '',
-		createdAt
+		createdAt: date
 	};
 	await saveSource(kv, source);
 	redirect(303, `/adm?saved=${encodeURIComponent(slug)}`);

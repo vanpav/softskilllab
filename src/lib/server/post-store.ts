@@ -26,7 +26,9 @@ export const seedSources: PostSource[] = Object.entries(seedFiles)
 			slug: path.split('/').pop()!.replace(/\.md$/, '').replace(/^\d+-/, ''),
 			title: meta.title ?? '',
 			text: raw.slice(match?.[0].length ?? 0).trim(),
-			doodle: (meta.doodle as PostSource['doodle']) ?? ''
+			doodle: (meta.doodle as PostSource['doodle']) ?? '',
+			// `date: 2026-10-15` in the front matter; without it the post simply shows no date.
+			...(meta.date ? { createdAt: meta.date } : {})
 		};
 	});
 

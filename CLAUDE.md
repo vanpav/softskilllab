@@ -32,6 +32,7 @@ No test suite or linter exists. After changes run `pnpm check`, then check in a 
 - `src/routes/zhurnal/` — journal list and post pages; `src/routes/adm/` — Аня's visual editor (`src/lib/components/admin/VisualEditor.svelte`) behind `ADMIN_PASSWORD` (`src/lib/server/admin-auth.ts`); the post sheet's styles are shared in `src/lib/components/journal/post-sheet.css`
 - Photos: `PHOTOS` R2 bucket, uploaded at `/adm/upload`, served at `/foto/<key>`; deleted with their post
 - Bindings come from `cloudflare:workers` through `src/lib/server/bindings.ts`, not `event.platform`; locally the password is in gitignored `.dev.vars`; restart `pnpm dev` after changing `wrangler.jsonc`
+- SEO: `Seo.svelte` writes title, description, canonical (always `SITE_URL`), Open Graph and JSON-LD from `src/lib/schema.ts`; `/sitemap.xml` is built from the post store; `static/robots.txt` closes `/adm`; `/legal` carries the previous site's legal texts word for word
 - `src/routes/layout.css` — journal tokens, shadcn role mapping, global rules
 - `src/lib/content.ts` — page copy that repeats or lists (protocols, roster, photos, contacts)
 - `src/lib/components/journal/` — page sections and their scoped CSS

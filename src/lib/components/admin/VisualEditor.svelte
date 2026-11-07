@@ -5,7 +5,7 @@
 	import '#lib/components/journal/post-sheet.css';
 	import { Button } from '#lib/components/ui/button/index.js';
 	import { doodleNames, type DoodleName } from '#lib/content.js';
-	import { noteColors, parsePost, toContent, type ContentBlock, type NoteColor, type Photo, type PostContent } from '#lib/posts.js';
+	import { noteColors, parsePost, todayInAkko, toContent, type ContentBlock, type NoteColor, type Photo, type PostContent } from '#lib/posts.js';
 
 	let {
 		source,
@@ -14,7 +14,7 @@
 		error,
 		submitLabel
 	}: {
-		source: { title: string; text: string; doodle?: string; content?: PostContent };
+		source: { title: string; text: string; doodle?: string; content?: PostContent; createdAt?: string };
 		number: number;
 		/** False while the PHOTOS bucket isn't bound; photo buttons are hidden then. */
 		photos?: boolean;
@@ -64,6 +64,9 @@
 	let blocks = $state<EditBlock[]>(initial.blocks.length ? initial.blocks.map(toEdit) : [blank()]);
 	// svelte-ignore state_referenced_locally
 	let doodle = $state(source.doodle ?? '');
+	// Publication date, YYYY-MM-DD; empty means the post shows no date.
+	// svelte-ignore state_referenced_locally
+	let date = $state(source.createdAt?.slice(0, 10) ?? '');
 	let picking = $state(false);
 	let submitting = $state(false);
 	let uploadError = $state('');
@@ -83,7 +86,7 @@
 	const post = $derived(parsePost({ slug: 'preview', title, text: '', doodle: doodle as DoodleName | '', content }, number));
 	const leadId = $derived(blocks.find((b) => b.type === 'p' && b.text.trim())?.id);
 	const note = $derived(NOTES[(number - 1) % NOTES.length]);
-	const snapshot = () => JSON.stringify([title, doodle, content]);
+	const snapshot = () => JSON.stringify([title, doodle, date, content]);
 	const saved = snapshot();
 	const dirty = $derived(snapshot() !== saved);
 
@@ -321,6 +324,7 @@
 <form class="visual" method="POST" onsubmit={() => (submitting = true)}>
 	<input type="hidden" name="title" value={title} />
 	<input type="hidden" name="doodle" value={doodle} />
+	<input type="hidden" name="date" value={date} />
 	<input type="hidden" name="content" value={JSON.stringify(content)} />
 
 	<p class="hint hand">Пишите прямо на странице. Можно вставить пост целиком, он сам разложится по блокам.</p>
@@ -331,6 +335,17 @@
 
 		<aside class="ps-margin">
 			<span class="ps-no hand">№{number}</span>
+			<div class="date-pick">
+				<label>
+					<span class="date-label">дата</span>
+					<input type="date" bind:value={date} max={todayInAkko()} aria-label="Дата записи, необязательно" />
+				</label>
+				{#if date}
+					<button type="button" class="date-clear" onclick={() => (date = '')}>убрать дату</button>
+				{:else}
+					<button type="button" class="date-clear" onclick={() => (date = todayInAkko())}>поставить сегодня</button>
+				{/if}
+			</div>
 			<div class="doodle-pick">
 				<button type="button" class="doodle-button" aria-expanded={picking} aria-label="Рисунок: {LABELS[post.doodle]}. Сменить" onclick={() => (picking = !picking)}>
 					<Doodle name={post.doodle} class="ps-doodle" />
@@ -720,6 +735,49 @@
 	}
 	.doodle-pick {
 		position: relative;
+	}
+	.date-pick {
+		display: grid;
+		justify-items: start;
+		gap: 4px;
+	}
+	.date-pick label {
+		display: grid;
+		gap: 4px;
+	}
+	.date-label {
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--ink-2);
+	}
+	/* A plain pen-blue date on the margin, not a boxed form field; specific enough to beat the /adm field style. */
+	.date-pick input[type='date'] {
+		width: auto;
+		border: 0;
+		border-bottom: 2px solid var(--ink);
+		border-radius: 0;
+		background: none;
+		padding: 2px 0;
+		font: inherit;
+		font-size: 15px;
+		font-weight: 600;
+		color: var(--pen);
+	}
+	.date-clear {
+		border: 0;
+		background: none;
+		padding: 0;
+		font: inherit;
+		font-size: 13px;
+		color: var(--ink-2);
+		cursor: pointer;
+	}
+	.date-clear:hover {
+		color: var(--pen);
+		text-decoration: underline wavy var(--pink-text);
+		text-underline-offset: 4px;
 	}
 	.doodle-button {
 		display: grid;

@@ -30,9 +30,9 @@
 		</div>
 		<figure class="polaroid" class:bearded={newYear}>
 			<span class="tape" aria-hidden="true"></span>
-			<img src={photo.src} alt={photo.alt} />
+			<img src={photo.src} alt={photo.alt} width="1000" height="1000" />
 			<span class="sticker">
-				<img src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" />
+				<img src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" width="752" height="752" />
 				{#if newYear}<SantaDoodle />{/if}
 			</span>
 			<span class="sticker-say" aria-hidden="true">{newYear ? 'Хо-хо-хо!' : 'я тоже тут!'}</span>

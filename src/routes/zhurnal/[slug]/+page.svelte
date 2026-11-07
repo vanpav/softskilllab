@@ -1,24 +1,36 @@
 <script lang="ts">
 	import PostArticle from '#lib/components/journal/PostArticle.svelte';
 	import PostCard from '#lib/components/journal/PostCard.svelte';
+	import MarginGame from '#lib/components/journal/MarginGame.svelte';
 	import SiteFooter from '#lib/components/journal/SiteFooter.svelte';
+	import Seo from '#lib/components/journal/Seo.svelte';
 	import SiteHeader from '#lib/components/journal/SiteHeader.svelte';
+	import Snow from '#lib/components/journal/Snow.svelte';
 	import WhatsAppIcon from '#lib/components/journal/WhatsAppIcon.svelte';
 	import { Button } from '#lib/components/ui/button/index.js';
-	import { WHATSAPP_HREF } from '#lib/content.js';
+	import { photos, WHATSAPP_HREF } from '#lib/content.js';
+	import { postSchema } from '#lib/schema.js';
 
 	let { data } = $props();
 	const post = $derived(data.post);
+	// The post's own first photo, or the lab's main photo, so a shared link always has a picture.
+	const image = $derived(post.cover ?? photos[0].src);
 </script>
 
-<svelte:head>
-	<title>{post.title} — журнал Soft Skills Lab</title>
-	<meta name="description" content={post.description} />
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={post.title} />
-	<meta property="og:description" content={post.description} />
-</svelte:head>
+<Seo
+	title="{post.title} — журнал Soft Skills Lab"
+	description={post.description}
+	path="/zhurnal/{post.slug}"
+	type="article"
+	image={image}
+	schema={postSchema(post, image)}
+/>
 
+{#if data.greeting}
+	<Snow />
+{:else}
+	<MarginGame />
+{/if}
 <SiteHeader />
 <main class="post-page">
 	<div class="wrap">
@@ -47,7 +59,7 @@
 		</div>
 	</div>
 </main>
-<SiteFooter greeting={null} />
+<SiteFooter greeting={data.greeting} />
 
 <style>
 	.post-page {

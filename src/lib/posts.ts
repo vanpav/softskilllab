@@ -46,6 +46,10 @@ export type Post = {
 	doodle: DoodleName;
 	minutes: number;
 	description: string;
+	/** ISO date the post was published, when known. */
+	date: string | null;
+	/** First photo of the post, for link previews. */
+	cover: string | null;
 	blocks: Block[];
 };
 
@@ -149,6 +153,8 @@ export function parsePost(source: PostSource, number: number): Post {
 			FALLBACK[(number - 1) % FALLBACK.length],
 		minutes: Math.max(1, Math.round(body.split(/\s+/).length / 170)),
 		description: leadText.length > 160 ? `${leadText.slice(0, 157).replace(/\s+\S*$/, '')}…` : leadText,
+		date: source.createdAt ?? null,
+		cover: blocks.flatMap((b) => (b.type === 'photos' ? b.photos : [])).map((photo) => `/foto/${photo.key}`)[0] ?? null,
 		blocks
 	};
 }
@@ -176,6 +182,13 @@ export function contentToText({ quote, blocks }: PostContent) {
 	}
 	return parts.join('\n\n');
 }
+
+/** Today as YYYY-MM-DD in Akko, the default date of a new post. */
+export const todayInAkko = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jerusalem' }).format(new Date());
+
+/** «7 ноября 2026», in Akko time. */
+export const formatDate = (iso: string) =>
+	new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jerusalem' }).format(new Date(iso)).replace(/\s*г\.$/, '');
 
 /** Sources in publication order, oldest first; numbers follow that order. */
 export const buildPosts = (sources: PostSource[]) => sources.map((source, i) => parsePost(source, i + 1));

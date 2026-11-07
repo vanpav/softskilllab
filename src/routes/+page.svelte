@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { page } from '$app/state';
 	import EntryPass from '#lib/components/journal/EntryPass.svelte';
 	import LabJournal from '#lib/components/journal/LabJournal.svelte';
 	import Hero from '#lib/components/journal/Hero.svelte';
@@ -11,9 +10,11 @@
 	import SiteFooter from '#lib/components/journal/SiteFooter.svelte';
 	import SiteHeader from '#lib/components/journal/SiteHeader.svelte';
 	import SoftSkills from '#lib/components/journal/SoftSkills.svelte';
+	import Seo from '#lib/components/journal/Seo.svelte';
 	import Snow from '#lib/components/journal/Snow.svelte';
 	import Teacher from '#lib/components/journal/Teacher.svelte';
 	import { photos } from '#lib/content.js';
+	import { businessSchema } from '#lib/schema.js';
 	import { COMING_NEW_YEAR } from '#lib/season.js';
 
 	let { data } = $props();
@@ -29,18 +30,11 @@
 	});
 	const greeting = $derived(data.greeting ?? (showNewYear ? COMING_NEW_YEAR : null));
 
-	const title = 'Soft Skills Lab — мини-группы для детей 6–16 лет, Акко';
+	const title = 'Soft Skills Lab — мини-группы для детей 6–16 лет в Акко, на русском';
 	const description = 'Мини-группы до 6 детей 6–16 лет в Акко. Научные опыты, на которых дети учатся договариваться, слушать и не бояться ошибок.';
 </script>
 
-<svelte:head>
-	<title>{title}</title>
-	<meta name="description" content={description} />
-	<meta property="og:type" content="website" />
-	<meta property="og:title" content={title} />
-	<meta property="og:description" content={description} />
-	<meta property="og:image" content={new URL(photos[0].src, page.url.href).href} />
-</svelte:head>
+<Seo {title} {description} path="/" image={photos[0].src} schema={businessSchema(description, photos[0].src)} />
 
 {#if greeting}
 	<Snow />

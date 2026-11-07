@@ -4,6 +4,16 @@ import slime from '#lib/assets/slime-experiment.webp';
 import blocks from '#lib/assets/team-building-blocks.webp';
 import map from '#lib/assets/treasure-map-compass.webp';
 
+/** The live address: canonicals, the sitemap and structured data point here even when served from workers.dev. */
+export const SITE_URL = 'https://softskilllabs.com';
+export const SITE_NAME = 'Soft Skills Lab';
+
+// Аня's own pages, carried over from the previous site's structured data.
+export const SOCIAL = [
+	{ name: 'Instagram', href: 'https://www.instagram.com/a_smorodina' },
+	{ name: 'Facebook', href: 'https://www.facebook.com/share/1CG7HfXhJ6/' }
+];
+
 export const PHONE_DISPLAY = '+972 53-378-9931';
 export const PHONE_HREF = 'tel:+972533789931';
 export const EMAIL = 'annasmorodinskaa@gmail.com';
