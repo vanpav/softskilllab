@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { LOOKS, SNOW_MAIDEN } from '#lib/anya-looks.js';
 	import anya from '#lib/assets/anya.webp';
-	import pushistik from '#lib/assets/pushistik.webp';
+	import pushistik from '#lib/assets/pushistik-320.webp';
 	import { credentials } from '#lib/content.js';
 	import SantaDoodle from './SantaDoodle.svelte';
 
@@ -70,7 +70,7 @@
 					{/each}
 				</svg>
 				<span class="sticker" class:bearded={newYear}>
-					<img src={pushistik} alt="Пушистик — пушистый инопланетянин в очках, талисман лаборатории" width="752" height="752" />
+					<img src={pushistik} alt="Пушистик — пушистый инопланетянин в очках, талисман лаборатории" width="320" height="320" />
 					{#if newYear}<SantaDoodle />{/if}
 				</span>
 			</div>

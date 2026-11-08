@@ -1,14 +1,20 @@
 import chemistry from '#lib/assets/color-chemistry-experiment.webp';
+import chemistrySmall from '#lib/assets/color-chemistry-experiment-640.webp';
 import flask from '#lib/assets/kids-flask-experiment.webp';
+import flaskSmall from '#lib/assets/kids-flask-experiment-640.webp';
 import slime from '#lib/assets/slime-experiment.webp';
+import slimeSmall from '#lib/assets/slime-experiment-640.webp';
 import blocks from '#lib/assets/team-building-blocks.webp';
+import blocksSmall from '#lib/assets/team-building-blocks-640.webp';
 import map from '#lib/assets/treasure-map-compass.webp';
+import mapSmall from '#lib/assets/treasure-map-compass-640.webp';
 
 import { nbspDeep } from './typography.js';
 
 /** The live address: canonicals, the sitemap and structured data point here even when served from workers.dev. */
 export const SITE_URL = 'https://softskilllabs.com';
 export const SITE_NAME = 'Soft Skills Lab';
+export const SHARE_IMAGE = '/og.jpg';
 
 // Аня's own pages, carried over from the previous site's structured data.
 export const SOCIAL = [
@@ -125,36 +131,41 @@ export const credentials = nbspDeep([
 	}
 ]);
 
-export type Photo = { src: string; alt: string; heroCaption: string; caption: string };
+export type Photo = { src: string; small: string; alt: string; heroCaption: string; caption: string };
 
 // One goes to the hero at random, the rest to the photo strip, so none repeats on a page.
 export const photos: Photo[] = nbspDeep([
 	{
 		src: flask,
+		small: flaskSmall,
 		alt: 'Мальчик и девочка вместе держат колбу с голубой жидкостью',
 		heroCaption: 'Одна колба на двоих. Сначала договорись, кто держит.',
 		caption: 'кто держит колбу?'
 	},
 	{
 		src: blocks,
+		small: blocksSmall,
 		alt: 'Трое мальчиков вместе собирают конструкцию из цветных деталей',
 		heroCaption: 'Инженерный челлендж. Собрать можно только втроём.',
 		caption: 'втроём держать легче'
 	},
 	{
 		src: slime,
+		small: slimeSmall,
 		alt: 'Дети месят зелёный слайм в общей миске',
 		heroCaption: 'Слайм на всех. Руки в одной миске.',
 		caption: 'слайм на всех'
 	},
 	{
 		src: chemistry,
+		small: chemistrySmall,
 		alt: 'Девочка капает пипеткой краситель в колбу, за ней смотрят другие дети',
 		heroCaption: 'Химия цвета. Все смотрят на одну каплю.',
 		caption: 'все смотрят на одну каплю'
 	},
 	{
 		src: map,
+		small: mapSmall,
 		alt: 'Мальчик и девочка прокладывают маршрут по карте',
 		heroCaption: 'Карта целей. Сначала решите, куда идём.',
 		caption: 'куда идём?'

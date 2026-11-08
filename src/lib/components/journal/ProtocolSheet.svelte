@@ -49,7 +49,7 @@
 		>
 			<span class="under" aria-hidden="true"></span>
 			<span class="note" aria-hidden="true">
-				<span class="paper"><span class="face">{protocol.question}<small>отклейте</small></span></span>
+				<span class="paper"><span class="face">{protocol.question} <small>отклейте</small></span></span>
 				<span class="flap"><span class="curl"></span><span class="back"></span></span>
 			</span>
 		</button>

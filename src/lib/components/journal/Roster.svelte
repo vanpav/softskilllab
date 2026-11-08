@@ -110,6 +110,8 @@
 	}
 	.ex a {
 		color: var(--pen);
+		text-decoration: underline;
+		text-underline-offset: 3px;
 	}
 	.ex a:hover {
 		text-decoration: underline wavy var(--pink-text);

@@ -15,6 +15,7 @@
 			<a href="/#protocols">Опыты</a>
 			<a href="/#anya">Аня</a>
 			<a href="/#join">Запись</a>
+			<a href="/zhurnal">Журнал</a>
 		</nav>
 		<Button
 			variant="pen"

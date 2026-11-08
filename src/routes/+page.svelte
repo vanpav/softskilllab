@@ -13,7 +13,7 @@
 	import Seo from '#lib/components/journal/Seo.svelte';
 	import Snow from '#lib/components/journal/Snow.svelte';
 	import Teacher from '#lib/components/journal/Teacher.svelte';
-	import { photos } from '#lib/content.js';
+	import { photos, SHARE_IMAGE } from '#lib/content.js';
 	import { businessSchema } from '#lib/schema.js';
 	import { COMING_NEW_YEAR } from '#lib/season.js';
 
@@ -30,11 +30,11 @@
 	});
 	const greeting = $derived(data.greeting ?? (showNewYear ? COMING_NEW_YEAR : null));
 
-	const title = 'Soft Skills Lab — мини-группы для детей 6–16 лет в Акко, на русском';
-	const description = 'Мини-группы до 6 детей 6–16 лет в Акко. Научные опыты, на которых дети учатся договариваться, слушать и не бояться ошибок.';
+	const title = 'Мини-группы soft skills для детей в Акко — Soft Skills Lab';
+	const description = 'Занятия для детей 6–16 лет в Акко на русском: мини-группы до 6 человек. Научные опыты, на которых дети учатся договариваться, слушать и не бояться ошибок.';
 </script>
 
-<Seo {title} {description} path="/" image={photos[0].src} schema={businessSchema(description, photos[0].src)} />
+<Seo {title} {description} path="/" schema={businessSchema(description, SHARE_IMAGE)} />
 
 {#if greeting}
 	<Snow />

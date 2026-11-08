@@ -6,7 +6,6 @@
 	import SiteHeader from '#lib/components/journal/SiteHeader.svelte';
 	import Snow from '#lib/components/journal/Snow.svelte';
 
-	import { photos } from '#lib/content.js';
 
 	let { data } = $props();
 
@@ -17,7 +16,6 @@
 	title="Журнал занятий — Soft Skills Lab"
 	description="Аня рассказывает, что происходило на занятиях Soft Skills Lab в Акко и что дети унесли домой."
 	path="/zhurnal"
-	image={photos[0].src}
 />
 
 {#if data.greeting}

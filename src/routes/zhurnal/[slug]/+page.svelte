@@ -8,13 +8,13 @@
 	import Snow from '#lib/components/journal/Snow.svelte';
 	import WhatsAppIcon from '#lib/components/journal/WhatsAppIcon.svelte';
 	import { Button } from '#lib/components/ui/button/index.js';
-	import { photos, WHATSAPP_HREF } from '#lib/content.js';
+	import { SHARE_IMAGE, WHATSAPP_HREF } from '#lib/content.js';
 	import { postSchema } from '#lib/schema.js';
 
 	let { data } = $props();
 	const post = $derived(data.post);
-	// The post's own first photo, or the lab's main photo, so a shared link always has a picture.
-	const image = $derived(post.cover ?? photos[0].src);
+	// The post's own first photo, or the common one, so a shared link always has a picture.
+	const image = $derived(post.cover ?? SHARE_IMAGE);
 </script>
 
 <Seo
@@ -34,7 +34,7 @@
 <SiteHeader />
 <main class="post-page">
 	<div class="wrap">
-		<a class="back hand" href="/#journal">
+		<a class="back hand" href="/zhurnal">
 			<svg viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M37 11C27 8 17 8 5 10M13 4l-8 6 8 6" /></svg>
 			журнал занятий
 		</a>

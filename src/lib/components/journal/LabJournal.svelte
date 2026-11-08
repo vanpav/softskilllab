@@ -18,9 +18,7 @@
 					<h2>Журнал занятий</h2>
 					<p class="sub">После занятий Аня записывает, что происходило в лаборатории и что дети унесли домой.</p>
 				</div>
-				{#if posts.length > SHOWN}
-					<Button variant="pencil" size="pencil" href="/zhurnal">все записи</Button>
-				{/if}
+				<Button variant="pencil" size="pencil" href="/zhurnal">все записи</Button>
 			</div>
 			<div class="cards">
 				{#each posts.slice(0, SHOWN) as post, i (post.slug)}

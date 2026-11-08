@@ -1,5 +1,5 @@
 <script lang="ts">
-	import pushistik from '#lib/assets/pushistik.webp';
+	import pushistik from '#lib/assets/pushistik-320.webp';
 	import { Button } from '#lib/components/ui/button/index.js';
 	import SantaDoodle from './SantaDoodle.svelte';
 	import { WHATSAPP_HREF, type Photo } from '#lib/content.js';
@@ -30,9 +30,17 @@
 		</div>
 		<figure class="polaroid" class:bearded={newYear}>
 			<span class="tape" aria-hidden="true"></span>
-			<img src={photo.src} alt={photo.alt} width="1000" height="1000" />
+			<img
+				src={photo.src}
+				srcset="{photo.small} 640w, {photo.src} 1000w"
+				sizes="(max-width: 900px) 300px, 520px"
+				alt={photo.alt}
+				width="1000"
+				height="1000"
+				fetchpriority="high"
+			/>
 			<span class="sticker">
-				<img src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" width="752" height="752" />
+				<img src={pushistik} alt="Пушистик, пушистый инопланетянин в очках" width="320" height="320" />
 				{#if newYear}<SantaDoodle />{/if}
 			</span>
 			<span class="sticker-say" aria-hidden="true">{newYear ? 'Хо-хо-хо!' : 'я\u00A0тоже тут!'}</span>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import pushistik from '#lib/assets/pushistik.webp';
+	import pushistik from '#lib/assets/pushistik-320.webp';
 	import MarginGame from '#lib/components/journal/MarginGame.svelte';
 	import SiteFooter from '#lib/components/journal/SiteFooter.svelte';
 	import SiteHeader from '#lib/components/journal/SiteHeader.svelte';

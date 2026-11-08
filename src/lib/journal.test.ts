@@ -31,6 +31,16 @@ test('a «Главный вывод» paragraph becomes its own note and the pos
 	);
 });
 
+test('a post description opens with the quote the lead answers, and fits a search snippet', () => {
+	const { description } = parsePost(
+		{ slug: 'x', title: 'X', text: '«Он посуду мыть собрался!»\n\nИменно такое сообщение я получила от мамы. ' + 'Дальше длинный рассказ. '.repeat(12), doodle: '' },
+		1
+	);
+	assert.ok(description.startsWith('«Он'));
+	assert.ok(description.includes('сообщение'));
+	assert.ok(description.length <= 160);
+});
+
 test('short words, numbers and dashes do not break a line', () => {
 	assert.equal(nbsp('и в группе до 6 детей — повод'), `и${NB}в${NB}группе до${NB}6${NB}детей${NB}— повод`);
 	assert.equal(nbsp('+972 53-378-9931'), '+972 53-378-9931', 'a phone number is left alone');

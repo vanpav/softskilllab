@@ -150,7 +150,8 @@ export function parsePost(source: PostSource, number: number): Post {
 	const body = [quote ?? '', ...blocks.map(blockText)].join(' ');
 
 	const lead = blocks.find((b) => b.type === 'lead');
-	const leadText = lead && 'text' in lead ? lead.text : '';
+	// The lead usually answers the quote («Именно такое сообщение…»), so on its own it makes no sense in search results.
+	const summary = [quote && `«${quote}».`, lead && 'text' in lead ? lead.text : ''].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
 	const lower = `${source.title} ${body}`.toLowerCase();
 	return {
 		slug: source.slug,
@@ -162,7 +163,7 @@ export function parsePost(source: PostSource, number: number): Post {
 			DOODLES.find(([pattern]) => pattern.test(lower))?.[1] ??
 			FALLBACK[(number - 1) % FALLBACK.length],
 		minutes: Math.max(1, Math.round(body.split(/\s+/).length / 170)),
-		description: nbsp(leadText.length > 160 ? `${leadText.slice(0, 157).replace(/\s+\S*$/, '')}…` : leadText),
+		description: nbsp(summary.length > 160 ? `${summary.slice(0, 157).replace(/\s+\S*$/, '')}…` : summary),
 		date: source.createdAt ?? null,
 		cover: blocks.flatMap((b) => (b.type === 'photos' ? b.photos : [])).map((photo) => `/foto/${photo.key}`)[0] ?? null,
 		blocks: blocks.map(typeset)
