@@ -137,8 +137,10 @@
 			const to = center(win[2]);
 			game.strike = `M${from.x} ${from.y}L${to.x} ${to.y}`;
 			game.result = mark === 'x' ? 'твоя взяла!' : 'моя взяла!';
+			window.gtag?.('event', 'game_finish', { result: mark === 'x' ? 'win' : 'loss' });
 		} else if (game.cells.every(Boolean)) {
 			game.result = 'ничья!';
+			window.gtag?.('event', 'game_finish', { result: 'draw' });
 		}
 	}
 
@@ -176,6 +178,7 @@
 
 	function move(game: Game, cell: number) {
 		if (game !== current || thinking || game.result || game.cells[cell]) return;
+		if (game.cells.every((value) => !value)) window.gtag?.('event', 'game_start');
 		place(game, cell, 'x');
 		if (game.result) return nextGame();
 		thinking = true;

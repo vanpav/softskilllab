@@ -11,8 +11,12 @@
 		document.getElementById(`conclusion-${index + 1}`)?.focus({ preventScroll: true });
 	}
 
+	const track = (index: number, method: 'one' | 'all') =>
+		window.gtag?.('event', 'sticker_peel', { sticker: index + 1, experiment: protocols[index].title, method });
+
 	function peel(index: number) {
 		reveal(index);
+		track(index, 'one');
 		peeled[index] = true;
 	}
 
@@ -20,6 +24,7 @@
 		const rest = peeled.flatMap((isPeeled, index) => (isPeeled ? [] : [index]));
 		reveal(rest[0]);
 		rest.forEach((index, order) => {
+			track(index, 'all');
 			setTimeout(() => (peeled[index] = true), order * 110);
 		});
 	}

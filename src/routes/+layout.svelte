@@ -8,8 +8,18 @@
 
 	// Only real visitors of the site: not Аня's editor, not local runs, not a preview address.
 	const tracked = $derived(page.url.origin === SITE_URL && !/^\/adm(\/|$)/.test(page.url.pathname));
+
+	function trackWhatsApp(event: MouseEvent) {
+		if (!(event.target instanceof Element) || !event.target.closest('a[href^="https://wa.me/"]')) return;
+		const place = event.target.closest('header, section, .cta');
+		const placement = !place ? 'page' : place.id || (place.localName === 'header' ? 'header' : place.classList[0]);
+		window.gtag?.('event', 'whatsapp_click', { placement });
+	}
+
 	const GTM_SETUP = `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());<\/script>`;
 </script>
+
+<svelte:window onclick={trackWhatsApp} />
 
 <svelte:head>
 	<link rel="icon" href="/favicon.ico" sizes="48x48" />

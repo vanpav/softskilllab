@@ -34,7 +34,7 @@ No linter exists. After changes run `pnpm check` and `pnpm test`, then check in 
 - Photos: `PHOTOS` R2 bucket, uploaded at `/adm/upload`, served at `/foto/<key>`; deleted with their post
 - Bindings come from `cloudflare:workers` through `src/lib/server/bindings.ts`, not `event.platform`; locally the password is in gitignored `.dev.vars`; restart `pnpm dev` after changing `wrangler.jsonc`
 - SEO: `Seo.svelte` writes title, description, canonical (always `SITE_URL`), Open Graph (default picture `static/og.jpg`, 1200×630) and JSON-LD from `src/lib/schema.ts`; `/sitemap.xml` is built from the post store; `static/robots.txt` closes `/adm`; `/legal` carries the previous site's legal texts plus the analytics wording
-- Analytics: Google tag `GTM-NH8NB2TF` in `src/routes/+layout.svelte`, only on `SITE_URL` and outside `/adm`
+- Analytics: Google tag `GTM-NH8NB2TF` in `src/routes/+layout.svelte`, only on `SITE_URL` and outside `/adm`; every `wa.me` link click sends `whatsapp_click` with `placement`; `sticker_peel`, `game_start` and `game_finish` come from `Protocols.svelte` and `MarginGame.svelte`
 - Line breaks: `src/lib/typography.ts` glues short Russian words, numbers and dashes with non-breaking spaces. It runs on static markup text at build time (preprocessor in `vite.config.ts`), on `content.ts` arrays via `nbspDeep`, and on journal posts in `parsePost`. Text in other JS strings needs `nbsp()` by hand
 - `src/routes/+error.svelte` — 404 and server errors as a torn-out journal page, copy varies by path and status; `src/error.html` — self-contained fallback when the app itself fails
 - `src/routes/layout.css` — journal tokens, shadcn role mapping, global rules
