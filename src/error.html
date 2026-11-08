@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<title>Ошибка %sveltekit.status% — Soft Skills Lab</title>
+		<!-- Shown when the app itself can't render, so it depends on nothing: no bundled CSS or fonts. -->
+		<style>
+			body {
+				margin: 0;
+				min-height: 100vh;
+				display: grid;
+				place-items: center;
+				padding: 24px 24px 24px 56px;
+				box-sizing: border-box;
+				font: 18px/1.55 system-ui, sans-serif;
+				color: #151a3a;
+				background-color: #fbfcff;
+				background-image: linear-gradient(#d9e5f6 1px, transparent 1px), linear-gradient(90deg, #d9e5f6 1px, transparent 1px);
+				background-size: 24px 24px;
+			}
+			body::before {
+				content: '';
+				position: fixed;
+				inset: 0 auto 0 clamp(10px, 3vw, 44px);
+				width: 2px;
+				background: #f0a2a2;
+			}
+			main {
+				max-width: 460px;
+				padding: 32px;
+				background: #fff;
+				box-shadow: 0 18px 34px rgba(20, 30, 80, 0.12);
+				transform: rotate(-1deg);
+			}
+			b {
+				font-size: 56px;
+				line-height: 1;
+				color: #1f3fc4;
+			}
+			h1 {
+				margin: 12px 0;
+				font-size: 32px;
+				font-weight: 900;
+				line-height: 1.05;
+				letter-spacing: -0.025em;
+			}
+			p {
+				margin: 0 0 12px;
+				color: #4b5276;
+			}
+			a {
+				color: #1f3fc4;
+				font-weight: 600;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<b>%sveltekit.status%</b>
+			<h1>В&nbsp;лаборатории что-то пошло не&nbsp;так</h1>
+			<p>Обновите страницу через минуту или вернитесь на&nbsp;главную.</p>
+			<a href="/">На&nbsp;главную</a>
+		</main>
+	</body>
+</html>
